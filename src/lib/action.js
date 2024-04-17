@@ -13,6 +13,9 @@ export const addPost = async (prevState, formData) => {
 
   const { title, desc, slug, userId, img } = Object.fromEntries(formData);
 
+  //EXTRACT IMG URLs FROM 'img'
+  //E.G., const imgUrls = ['URL1', 'URL2', 'URL3']
+
   try {
     connectToDb();
     const post = await Post.findOne({ slug: slug });
