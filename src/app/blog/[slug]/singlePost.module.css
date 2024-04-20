@@ -1,6 +1,9 @@
 .container {
-  display: flex;
+  /* display: flex; */
   gap: 100px;
+  /* flex-direction: column; */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
 }
 
 .imgContainer {
@@ -50,6 +53,9 @@
 
 @media (max-width:768px){
   .imgContainer{
-    display: none;
+    /* display: none; */
+  }
+  .container{
+    grid-template-columns: 1fr;
   }
 }

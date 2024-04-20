@@ -4,17 +4,6 @@ import PostUser from "@/components/postUser/PostUser";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 
-// FETCH DATA WITH AN API
-// const getData = async (slug) => {
-//   const res = await fetch(`${process.env.DOMAIN}/api/blog/${slug}`);
-
-//   if (!res.ok) {
-//     throw new Error("Something went wrong");
-//   }
-
-//   return res.json();
-// };
-
 export const generateMetadata = async ({ params }) => {
   const { slug } = params;
 
@@ -29,17 +18,13 @@ export const generateMetadata = async ({ params }) => {
 const SinglePostPage = async ({ params }) => {
   const { slug } = params;
 
-  // FETCH DATA WITH AN API
-  // const post = await getData(slug);
-
-  // FETCH DATA WITHOUT AN API
   const post = await getPost(slug);
 
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <Image
-          src={post.img ? post.img : "/noimage.png"}
+          src={post.img ? post.img[0] : "/noimage.png"}
           alt="postimage"
           fill
           className={styles.img}

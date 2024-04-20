@@ -25,18 +25,36 @@
   margin: auto;
 }
 
-.title{
-  width: 90%;
-  font-size: 24px;
-  margin-bottom: 20px;
+.bottom{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+
+.title{
+  /* width: 90%; */
+  font-size: 24px;
+  /* margin-bottom: 20px; */
+  font-weight: 900;
+}
+
+.country{
+  font-weight: 600;
+  font-size: 20px;
+}
+.city{
+  font-weight: 300;
+  font-size: 16px;
+}
+
 
 .desc{
   width: 90%;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   font-weight: 300;
   color: gray;
 }
+
 
 .link{
   text-decoration: underline;
