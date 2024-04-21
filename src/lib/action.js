@@ -169,58 +169,39 @@ export const login = async (prevState, formData) => {
   }
 };
 
-import { google } from "googleapis";
-import { Readable } from "stream";
+require("isomorphic-fetch");
+var Dropbox = require("dropbox").Dropbox;
 
 export async function uploadFiles(objs) {
-  let URLs = [];
+  console.log("Uploading files...");
 
-  console.log(objs);
+  var dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
 
-  for (let i = 0; i < objs.length; i++) {
-    let fileName = objs[i].fileName;
-    let mimeType = objs[i].mimeType;
-    let data = objs[i].data;
+  // console.log(dbx);
+  // dbx
+  //   .usersGetCurrentAccount()
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.error(error);
+  //   });
 
-    try {
-      // Authenticate with Google Drive API (replace with your credentials)
-      const auth = new google.auth.JWT({
-        scopes: ["https://www.googleapis.com/auth/drive"],
-        keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-        clientId: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET,
-      });
-
-      const drive = google.drive({ version: "v3", auth });
-
-      const blob = Buffer.from(data, "base64");
-
-      // Upload the file
-
-      const readableStream = Readable.from([blob]);
-
-      const response = await drive.files.create({
-        requestBody: {
-          name: fileName,
-          mimeType: mimeType,
-          parents: [process.env.GOOGLE_FOLDER_ID],
-        },
-        media: {
-          mimeType,
-          body: readableStream,
-        },
-        fields: "id, webViewLink", // Only request necessary fields
-      });
-
-      URLs.push(response.data.webViewLink);
-      readableStream.push(null); // Mark end of stream for each upload
-    } catch (error) {
-      console.error("Error creating file:", error);
-      throw error; // Re-throw for handling in the main function
-    }
-  }
-
-  console.log(URLs);
-
-  return URLs;
+  dbx
+    .filesListFolder({ path: "" })
+    .then(function (response) {
+      console.log(response.entries);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 }
+
+// dbx
+//   .filesListFolder({ path: "" })
+//   .then(function (response) {
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
