@@ -169,39 +169,7 @@ export const login = async (prevState, formData) => {
   }
 };
 
-require("isomorphic-fetch");
-var Dropbox = require("dropbox").Dropbox;
-
 export async function uploadFiles(objs) {
   console.log("Uploading files...");
-
-  var dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
-
-  // console.log(dbx);
-  // dbx
-  //   .usersGetCurrentAccount()
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.error(error);
-  //   });
-
-  dbx
-    .filesListFolder({ path: "" })
-    .then(function (response) {
-      console.log(response.entries);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  console.log(objs);
 }
-
-// dbx
-//   .filesListFolder({ path: "" })
-//   .then(function (response) {
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
