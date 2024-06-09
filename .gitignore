@@ -28,7 +28,6 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
-google_service_file.json
 
 # vercel
 .vercel

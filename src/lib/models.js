@@ -44,15 +44,12 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    img: {
-      type: [String],
-    },
     userId: {
       type: String,
       required: true,
     },
-    slug: {
-      type: String,
+    imageData: {
+      type: Array,
       required: true,
       unique: true,
     },

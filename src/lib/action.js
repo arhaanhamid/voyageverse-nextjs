@@ -6,33 +6,61 @@ import { connectToDb } from "./utils";
 import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
-export const addPost = async (prevState, formData) => {
-  // const title = formData.get("title");
-  // const desc = formData.get("desc");
-  // const slug = formData.get("slug");
+import { v2 as cloudinary } from "cloudinary";
 
-  const { title, desc, slug, userId, img } = Object.fromEntries(formData);
+export const uploadImage = async function (formData) {
+  const { title, desc, userId, location } = Object.fromEntries(formData);
+  const imageData = [];
 
-  //EXTRACT IMG URLs FROM 'img'
-  //E.G., const imgUrls = ['URL1', 'URL2', 'URL3']
+  const files = formData.getAll("images");
+
+  for (const file of files) {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            tags: ["nextjs-server-actions-upload-sneakers"],
+            upload_preset: "voyageverse_uploads",
+          },
+          function (error, result) {
+            if (error) {
+              reject(error);
+              return;
+            }
+
+            imageData.push({
+              imageUrl: result.secure_url,
+              imageId: result.asset_id,
+            });
+
+            resolve(result);
+          }
+        )
+        .end(buffer);
+    });
+  }
 
   try {
     connectToDb();
-    const post = await Post.findOne({ slug: slug });
+    // const post = await Post.findOne({ slug: slug });
 
-    if (post) {
-      return { error: "Please enter a unique slug value as this is taken." };
-    }
-
+    // if (post) {
+    //   return { error: "Please enter a unique slug value as this is taken." };
+    // }
+    console.log(imageData);
     const newPost = new Post({
       title,
       desc,
-      slug,
+      location,
       userId,
-      img,
+      imageData,
     });
 
     await newPost.save();
+
     console.log("New post saved to db");
     revalidatePath("/blog");
     revalidatePath("/admin");
@@ -41,7 +69,49 @@ export const addPost = async (prevState, formData) => {
     console.log(err);
     return { error: "Something went wrong!" };
   }
+
+  revalidatePath("/");
 };
+
+// export const addPost = async (prevState, formData) => {
+//   // const title = formData.get("title");
+//   // const desc = formData.get("desc");
+//   // const slug = formData.get("slug");
+//   // const image = formData.get("image");
+
+//   const { title, desc, slug, userId, img } = Object.fromEntries(formData);
+//   console.log(title, desc, slug, userId, img);
+
+//   //EXTRACT IMG URLs FROM 'img'
+//   //E.G., const imgUrls = ['URL1', 'URL2', 'URL3']
+
+//   try {
+//     connectToDb();
+//     // const post = await Post.findOne({ slug: slug });
+
+//     // if (post) {
+//     //   return { error: "Please enter a unique slug value as this is taken." };
+//     // }
+
+//     // const newPost = new Post({
+//     //   title,
+//     //   desc,
+//     //   slug,
+//     //   userId,
+//     //   img,
+//     // });
+
+//     // await newPost.save();
+//     // console.log("New post saved to db");
+//     // revalidatePath("/blog");
+//     // revalidatePath("/admin");
+//     // revalidatePath("/profile");
+//     return { error: "gg went wrong!" };
+//   } catch (err) {
+//     console.log(err);
+//     return { error: "Something went wrong!" };
+//   }
+// };
 
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -169,7 +239,39 @@ export const login = async (prevState, formData) => {
   }
 };
 
-export async function uploadFiles(objs) {
-  console.log("Uploading files...");
-  console.log(objs);
-}
+// reads in the cloudinary env variable - put this before
+// require("dotenv").config();
+// // we're aliasing version 2 and referencing with a variable
+// const cloudinary = require("cloudinary").v2;
+// // cloudinary picks up env and is now configured
+// console.log(cloudinary.config().cloud_name);
+
+export const cloudinaryUpload = async (files) => {
+  const uploadedURLs = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+    const formData = new FormData();
+    formData.append("file", `data:${file.mimeType};base64,${file.data}`);
+    formData.append("upload_preset", "test_upload");
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      uploadedURLs.push(data.secure_url);
+    } catch (error) {
+      console.error("Error uploading to Cloudinary:", error);
+    }
+  }
+
+  return uploadedURLs;
+};
