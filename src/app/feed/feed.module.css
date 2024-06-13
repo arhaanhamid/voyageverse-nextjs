@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 50px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+}
+
+@media screen and (max-width: 1280px) {
+
+}
+
+@media screen and (max-width: 768px) {
+
+}

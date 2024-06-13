@@ -12,28 +12,10 @@
   gap: 100px;
 }
 
-.row h1{
-  font-size: 24px;
-  font-weight: 300;
-}
-
-.form {
-  flex: 1;
-  width: 40%;
-}
-
-.col  img {
-  object-fit: cover;
-  border-radius: 50%;
-}
-
 .line{
-  margin: 100px;
-  color: var(--bgSoft)
+  /* margin: 100px;
+  color: var(--bgSoft) */
 }
 
 @media (max-width: 768px) {
-  .row {
-    flex-direction: column;
-  }
 }

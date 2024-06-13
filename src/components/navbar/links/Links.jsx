@@ -9,8 +9,12 @@ import Link from "next/link";
 
 const links = [
   {
-    title: "Homepage",
+    title: "Home",
     path: "/",
+  },
+  {
+    title: "Feed",
+    path: "/feed",
   },
   {
     title: "About",
@@ -19,10 +23,6 @@ const links = [
   {
     title: "Contact",
     path: "/contact",
-  },
-  {
-    title: "Posts",
-    path: "/blog",
   },
 ];
 

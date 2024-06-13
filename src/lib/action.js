@@ -73,46 +73,6 @@ export const uploadImage = async function (formData) {
   revalidatePath("/");
 };
 
-// export const addPost = async (prevState, formData) => {
-//   // const title = formData.get("title");
-//   // const desc = formData.get("desc");
-//   // const slug = formData.get("slug");
-//   // const image = formData.get("image");
-
-//   const { title, desc, slug, userId, img } = Object.fromEntries(formData);
-//   console.log(title, desc, slug, userId, img);
-
-//   //EXTRACT IMG URLs FROM 'img'
-//   //E.G., const imgUrls = ['URL1', 'URL2', 'URL3']
-
-//   try {
-//     connectToDb();
-//     // const post = await Post.findOne({ slug: slug });
-
-//     // if (post) {
-//     //   return { error: "Please enter a unique slug value as this is taken." };
-//     // }
-
-//     // const newPost = new Post({
-//     //   title,
-//     //   desc,
-//     //   slug,
-//     //   userId,
-//     //   img,
-//     // });
-
-//     // await newPost.save();
-//     // console.log("New post saved to db");
-//     // revalidatePath("/blog");
-//     // revalidatePath("/admin");
-//     // revalidatePath("/profile");
-//     return { error: "gg went wrong!" };
-//   } catch (err) {
-//     console.log(err);
-//     return { error: "Something went wrong!" };
-//   }
-// };
-
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
 

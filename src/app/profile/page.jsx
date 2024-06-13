@@ -11,9 +11,6 @@ const ProfilePage = async () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <div className={styles.form}>
-          <UserPostForm userId={session.user.id} />
-        </div>
         <div className={styles.col}>
           <Suspense fallback={<div>Loading...</div>}>
             <UserPosts userId={session.user.id} />
