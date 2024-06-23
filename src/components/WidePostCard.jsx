@@ -5,9 +5,9 @@ const WidePostCard = ({ post }) => {
 
   return (
     <div className="max-w-screen-xl mx-auto">
-      <main className="mt-10">
+      <main className="bg-black">
         <div
-          className="mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative"
+          className="w-full max-w-screen-md mx-auto relative"
           style={{ height: 24 + "em" }}
         >
           <div className="absolute left-0 bottom-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-black/70"></div>
@@ -41,7 +41,10 @@ const WidePostCard = ({ post }) => {
                   {" "}
                   Mike Sullivan{" "}
                 </p>
-                <p className="font-semibold text-gray-400 text-xs"> 14 Aug </p>
+                <p className="font-semibold text-gray-400 text-xs">
+                  {" "}
+                  {createdDate.toLocaleString()}{" "}
+                </p>
               </div>
             </div>
           </div>

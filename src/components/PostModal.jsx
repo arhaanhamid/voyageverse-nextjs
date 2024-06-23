@@ -3,36 +3,37 @@ import { useEffect } from "react";
 
 const PostModal = () => {
   useEffect(() => {
+    const modal = document.getElementById("modal");
+    const openButton = document.getElementById("openButton");
+    const closeButton = document.getElementById("closeButton");
+
     const openModal = () => {
-      console.log("open modal");
-      document.getElementById("modal").classList.remove("sm:hidden");
-      document.getElementById("modal").classList.remove("hidden");
+      modal.classList.remove("sm:hidden");
+      modal.classList.remove("hidden");
     };
     const closeModal = () => {
-      document.getElementById("modal").classList.add("sm:hidden");
-      document.getElementById("modal").classList.add("hidden");
+      modal.classList.add("sm:hidden");
+      modal.classList.add("hidden");
     };
 
-    document.getElementById("openButton").addEventListener("click", openModal);
-    document
-      .getElementById("closeButton")
-      .addEventListener("click", closeModal);
+    openButton.addEventListener("click", openModal);
+    closeButton.addEventListener("click", closeModal);
 
     // Cleanup event listeners on unmount
     return () => {
-      document
-        .getElementById("openButton")
-        .removeEventListener("click", openModal);
-      document
-        .getElementById("closeButton")
-        .removeEventListener("click", closeModal);
+      openButton.removeEventListener("click", openModal);
+
+      if (
+        modal.classList.contains("sm:hidden") ||
+        modal.classList.contains("hidden")
+      ) {
+        closeButton.removeEventListener("click", closeModal);
+      }
     };
   }, []);
 
   return (
     <div>
-     
-
       <div
         id="modal"
         className="container mx-auto sm:hidden hidden justify-center items-center px-4 md:px-10 py-20"
