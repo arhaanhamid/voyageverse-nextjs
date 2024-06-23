@@ -22,7 +22,7 @@ export const authConfig = {
     authorized({ auth, request }) {
       const user = auth?.user;
       const isOnAdminPanel = request.nextUrl?.pathname.startsWith("/admin");
-      const isOnBlogPage = request.nextUrl?.pathname.startsWith("/blog");
+      const isOnBlogPage = request.nextUrl?.pathname.startsWith("/feed");
       const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
       const isOnProfilePage = request.nextUrl?.pathname.startsWith("/profile");
 

@@ -29,6 +29,8 @@ const links = [
 const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
 
+  function handlePopUp() {}
+
   return (
     <div className={styles.container}>
       <div className={styles.links}>
@@ -39,6 +41,16 @@ const Links = ({ session }) => {
           <>
             {session.user?.isAdmin && (
               <NavLink item={{ title: "Admin", path: "/admin" }} />
+            )}
+
+            {!session.user?.isAdmin && (
+              <button
+                className="mr-5 flex justify-center items-center gap-1.5 font-medium"
+                onClick={handlePopUp}
+              >
+                <span className="material-symbols-outlined">add</span>
+                Create
+              </button>
             )}
 
             {!session.user?.isAdmin && (

@@ -11,7 +11,6 @@ const UserPosts = async ({ userId }) => {
   return (
     <div className="mb-10">
       {/* <UserPostCard post={posts} />; */}
-
       {posts.length > 0 &&
         posts.map((post) => <UserPostCard post={post} key={post._id} />)}
     </div>
