@@ -1,3 +1,5 @@
+// components/Links.js
+
 "use client";
 
 import { useState } from "react";
@@ -26,10 +28,8 @@ const links = [
   },
 ];
 
-const Links = ({ session }) => {
+const Links = ({ session}) => {
   const [open, setOpen] = useState(false);
-
-  function handlePopUp() {}
 
   return (
     <div className={styles.container}>
@@ -45,8 +45,9 @@ const Links = ({ session }) => {
 
             {!session.user?.isAdmin && (
               <button
+                id="openButton"
                 className="mr-5 flex justify-center items-center gap-1.5 font-medium"
-                onClick={handlePopUp}
+               
               >
                 <span className="material-symbols-outlined">add</span>
                 Create

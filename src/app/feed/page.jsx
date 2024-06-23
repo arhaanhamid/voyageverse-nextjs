@@ -5,6 +5,8 @@ import UserPostForm from "@/components/userPostForm/UserPostForm";
 import { auth } from "@/lib/auth";
 import UserPostCard from "@/components/UserPostCard";
 import Script from "next/script";
+import PostModal from "@/components/PostModal";
+
 
 const Feed = async () => {
   const posts = await getPosts();
@@ -12,6 +14,8 @@ const Feed = async () => {
 
   return (
     <div className={styles.container}>
+      {/* Other hero content */}
+      <PostModal />
       <div>
         <UserPostForm userId={session.user.id} />
       </div>
