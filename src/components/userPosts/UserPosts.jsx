@@ -2,7 +2,7 @@ import { getUserPosts } from "@/lib/data";
 import styles from "./userPosts.module.css";
 import Image from "next/image";
 import { deletePost } from "@/lib/action";
-import UserPostCard from "../UserPostCard";
+import UserPostCard from "../WidePostCard";
 
 const UserPosts = async ({ userId }) => {
   const posts = await getUserPosts(userId);

@@ -3,7 +3,7 @@ import styles from "./feed.module.css";
 import { getPosts } from "@/lib/data";
 import UserPostForm from "@/components/userPostForm/UserPostForm";
 import { auth } from "@/lib/auth";
-import UserPostCard from "@/components/UserPostCard";
+import UserPostCard from "@/components/WidePostCard";
 import Script from "next/script";
 
 const Feed = async () => {

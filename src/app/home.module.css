@@ -1,8 +1,13 @@
 .container {
   display: flex;
+  flex-direction: column;
   gap: 100px;
+}
+  
+.hero{
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 100px;
 }
 
 .textContainer {

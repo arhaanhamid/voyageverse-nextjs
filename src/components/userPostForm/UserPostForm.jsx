@@ -7,15 +7,26 @@ function UserPostForm({ userId }) {
       <form action={uploadImage} className={styles.form}>
         <div className={styles.form_group}>
           <input type="text" id="title" name="title" placeholder="Title..." />
+          <input type="hidden" name="userId" value={userId} />
         </div>
         <div className={styles.form_group}>
           <textarea
-            name="textarea"
-            id="textarea"
+            name="desc"
+            id="desc"
             rows="10"
             cols="50"
             defaultValue="Description..."
           ></textarea>
+        </div>
+        <div className="text-black">
+          <select name="location" defaultValue="">
+            <option value="" hidden disabled>
+              Select Location
+            </option>
+            <option value="india">India</option>
+            <option value="usa">USA</option>
+            <option value="japan">Japan</option>
+          </select>
         </div>
 
         <div className="col-span-full">
@@ -35,16 +46,23 @@ function UserPostForm({ userId }) {
               </svg>
               <div className="mt-4 flex text-sm leading-6 text-gray-300">
                 <label
-                  htmlFor="file-upload"
+                  htmlFor="images"
                   className="relative cursor-pointer rounded-md  font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                 >
                   <span>Upload a file</span>
                   <input
-                    id="file-upload"
-                    name="file-upload"
+                    id="images"
+                    name="images"
                     type="file"
                     className="sr-only"
+                    accept="image/*"
+                    multiple
                   />
+                  {/* <inputs
+                    type="file"
+                    name="images"
+                    required
+                  /> */}
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>

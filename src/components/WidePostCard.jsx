@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const UserPostCard = ({ post }) => {
+const WidePostCard = ({ post }) => {
   const createdDate = new Date(post.createdAt);
 
   return (
@@ -119,4 +119,4 @@ const UserPostCard = ({ post }) => {
   );
 };
 
-export default UserPostCard;
+export default WidePostCard;
