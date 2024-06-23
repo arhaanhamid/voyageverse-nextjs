@@ -3,9 +3,13 @@ import "./globals.css";
 import "./globalicons.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import PostModal from "@/components/PostModal";
+import { auth } from "@/lib/auth";
 
 
 const inter = Inter({ subsets: ["latin"] });
+const session = await auth();
+
 
 export const metadata = {
   title: {
@@ -22,6 +26,7 @@ export default function RootLayout({ children }) {
         <div className="container">
           <div className="blur-overlay"></div>
           <Navbar />
+           <PostModal session={session}/>
           <div className="content-container">{children}</div>
           <Footer />
         </div>

@@ -1,11 +1,8 @@
-import PostCard from "@/components/postCard/PostCard";
 import styles from "./feed.module.css";
 import { getPosts } from "@/lib/data";
 import UserPostForm from "@/components/userPostForm/UserPostForm";
 import { auth } from "@/lib/auth";
 import UserPostCard from "@/components/WidePostCard";
-import Script from "next/script";
-import PostModal from "@/components/PostModal";
 
 
 const Feed = async () => {
@@ -14,8 +11,6 @@ const Feed = async () => {
 
   return (
     <div className={styles.container}>
-      {/* Other hero content */}
-      <PostModal />
       <div>
         <UserPostForm userId={session.user.id} />
       </div>
