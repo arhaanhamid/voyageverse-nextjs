@@ -5,15 +5,11 @@ const PostModal = () => {
   useEffect(() => {
     const openModal = () => {
       console.log("open modal");
-      document.getElementById("button").classList.add("sm:hidden");
       document.getElementById("modal").classList.remove("sm:hidden");
-      document.getElementById("button").classList.add("hidden");
       document.getElementById("modal").classList.remove("hidden");
     };
     const closeModal = () => {
-      document.getElementById("button").classList.remove("sm:hidden");
       document.getElementById("modal").classList.add("sm:hidden");
-      document.getElementById("button").classList.remove("hidden");
       document.getElementById("modal").classList.add("hidden");
     };
 
@@ -35,17 +31,7 @@ const PostModal = () => {
 
   return (
     <div>
-      <div
-        id="button"
-        className="container mx-auto justify-center items-center px-4 md:px-10 py-20"
-      >
-        <button
-          id="openButton"
-          className="bg-white text-gray-800 py-5 px-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded"
-        >
-          Open Modal
-        </button>
-      </div>
+     
 
       <div
         id="modal"
