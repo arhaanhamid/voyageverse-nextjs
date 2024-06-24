@@ -5,9 +5,9 @@ import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 
 export const generateMetadata = async ({ params }) => {
-  const { slug } = params;
+  const { postid } = params;
 
-  const post = await getPost(slug);
+  const post = await getPost(postid);
 
   return {
     title: post.title,
@@ -16,15 +16,18 @@ export const generateMetadata = async ({ params }) => {
 };
 
 const SinglePostPage = async ({ params }) => {
-  const { slug } = params;
-
-  const post = await getPost(slug);
+  const { postid } = params;
+  const post = await getPost(postid);
 
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <Image
-          src={post.img ? post.img[0] : "/noimage.png"}
+          src={
+            post.imageData[0].imageUrl
+              ? post.imageData[0].imageUrl
+              : "/noimage.png"
+          }
           alt="postimage"
           fill
           className={styles.img}

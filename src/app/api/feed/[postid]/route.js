@@ -3,12 +3,12 @@ import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export const GET = async (request, { params }) => {
-  const { slug } = params;
+  const { postid } = params;
 
   try {
     connectToDb();
 
-    const post = await Post.findOne({ slug });
+    const post = await Post.findOne({ postid });
     return NextResponse.json(post);
   } catch (err) {
     console.log(err);
@@ -17,12 +17,12 @@ export const GET = async (request, { params }) => {
 };
 
 export const DELETE = async (request, { params }) => {
-  const { slug } = params;
+  const { postid } = params;
 
   try {
     connectToDb();
 
-    await Post.deleteOne({ slug });
+    await Post.deleteOne({ postid });
     return NextResponse.json("Post deleted");
   } catch (err) {
     console.log(err);

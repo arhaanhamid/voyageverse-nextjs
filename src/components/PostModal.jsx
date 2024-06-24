@@ -6,7 +6,6 @@ const PostModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const modal = document.getElementById("modal");
     const openButton = document.getElementById("openButton");
     const closeButton = document.getElementById("closeButton");
 

@@ -1,8 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const ShortPostCard = ({ post }) => {
-  const createdDate = new Date(post.createdAt);
-
   return (
     <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg">
       <Image
@@ -17,7 +16,7 @@ const ShortPostCard = ({ post }) => {
         <div className="p-4 sm:p-6">
           <time className="block text-xs text-white/90">
             {" "}
-            {createdDate.toLocaleString()}
+            {new Date(post.createdAt).toLocaleString()}
           </time>
 
           <a href="#">
@@ -25,7 +24,13 @@ const ShortPostCard = ({ post }) => {
           </a>
 
           <p className="mt-2 line-clamp-3 text-sm/relaxed text-white/95">
-            {post.desc}
+            {post.desc}...
+            <Link
+              className="text-blue-600 underline font-bold"
+              href={`/feed/${post._id.toString()}`}
+            >
+              Read More...
+            </Link>
           </p>
         </div>
       </div>
