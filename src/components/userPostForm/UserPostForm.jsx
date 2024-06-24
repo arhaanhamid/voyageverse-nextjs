@@ -1,4 +1,4 @@
-import styles from "./userPostForm.module.css";
+import styles from "@/components/userPostForm.module.css";
 import { uploadImage } from "@/lib/action";
 
 function UserPostForm({ userId }) {

@@ -1,15 +1,16 @@
+
 // components/PostModal.js
 "use client"
+import styles from "@/components/userPostForm.module.css"
 import { useState, useEffect } from "react";
+import { uploadImage } from "@/lib/action";
+import CountrySelector from "@/app/countryselector/page";
+import Uploadimage from "@/components/uploadimage/Uploadimage";
 
-const PostModal = () => {
-
+const PostModal = ({ userId }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-
   useEffect(() => {
-   
-    const modal = document.getElementById("modal");
     const openButton = document.getElementById("openButton");
     const closeButton = document.getElementById("closeButton");
 
@@ -23,12 +24,11 @@ const PostModal = () => {
       document.body.style.overflow = "auto"; // Enable scrolling
     };
 
-    
     openButton.addEventListener("click", openModal);
     closeButton.addEventListener("click", closeModal);
     return () => {
-        openButton.removeEventListener("click", openModal);
-        closeButton.removeEventListener("click", closeModal);
+      openButton.removeEventListener("click", openModal);
+      closeButton.removeEventListener("click", closeModal);
     };
   }, []);
 
@@ -37,11 +37,11 @@ const PostModal = () => {
       {/* Background overlay */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity ${
-          modalOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          modalOpen ? "opacity-100 pointer-events-auto backdrop-blur-sm" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden="true"
       ></div>
-
+      
       {/* Modal */}
       <div
         id="modal"
@@ -52,44 +52,57 @@ const PostModal = () => {
         role="dialog"
         aria-modal="true"
       >
-        <div className="relative bg-white dark:bg-gray-800 rounded-lg max-w-lg mx-auto p-4 md:p-8">
-          {/* Close button */}
-          <button
-            id="closeButton"
-            className="absolute top-0 right-0 mt-4 mr-4 text-gray-600 dark:text-gray-400"
-            onClick={() => setModalOpen(false)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-
-          {/* Modal content */}
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-              Welcome to the Luxe Family!
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
-              A confirmation email has been sent to your account with shipping details.
-            </p>
+        <div className={styles.form_container}>
+          <div className="relative dark:bg-white rounded-lg max-w-lg mx-auto p-4 md:p-8 w-full h-full max-w-screen-lg">
             <button
               id="closeButton"
-              className="bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700 transition-colors focus:outline-none"
+              className="absolute top-0 right-0 mt-0.3 mr-1 text-white"
               onClick={() => setModalOpen(false)}
             >
-              Back to Store
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3.5}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
+            <form action={uploadImage} className={styles.form}>
+              <div className={styles.form_group}>
+                <input type="text" id="title" name="title" placeholder="Title..." />
+                <input type="hidden" name="userId" value={userId} />
+              </div>
+              <div className={styles.form_group}>
+                <textarea
+                  name="desc"
+                  id="desc"
+                  rows="10"
+                  cols="50"
+                  placeholder="Description..."
+                ></textarea>
+              </div>
+              <CountrySelector />
+              <Uploadimage onImageSelect={() => {}} />
+              <div className={styles.group_btn}>
+                <button
+                  id="closeButton"
+                  className={`bg-[#DC2626] ${styles.form_submit_btn}`}
+                  onClick={() => setModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button className={`bg-white ${styles.form_submit_btn}`} type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

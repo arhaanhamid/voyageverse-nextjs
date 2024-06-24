@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         <div className="container">
           <div className="blur-overlay"></div>
           <Navbar />
-           <PostModal session={session}/>
+           <PostModal/>
           <div className="content-container">{children}</div>
           <Footer />
         </div>
