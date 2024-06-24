@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
-function UploadImage() {
-  const [images, setImages] = useState([]);
+function UploadImage({ setImages, images }) {
+  // const [images, setImages] = useState([]);
   const dropAreaRef = useRef(null);
   const fileInputRef = useRef(null);
-
+  console.log("inside uploadImage method:", images);
   useEffect(() => {
     const dropArea = dropAreaRef.current;
 
     if (dropArea) {
       // Prevent default drag behaviors
-      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
         dropArea.addEventListener(eventName, preventDefaults, false);
       });
 
@@ -20,16 +20,24 @@ function UploadImage() {
       }
 
       // Highlight drop area when item is dragged over it
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => dropArea.classList.add('hover'), false);
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.addEventListener(
+          eventName,
+          () => dropArea.classList.add("hover"),
+          false
+        );
       });
 
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => dropArea.classList.remove('hover'), false);
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(
+          eventName,
+          () => dropArea.classList.remove("hover"),
+          false
+        );
       });
 
       // Handle dropped files
-      dropArea.addEventListener('drop', handleDrop, false);
+      dropArea.addEventListener("drop", handleDrop, false);
 
       function handleDrop(e) {
         const dt = e.dataTransfer;
@@ -39,28 +47,28 @@ function UploadImage() {
 
       // Clean up event listeners on unmount
       return () => {
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
           dropArea.removeEventListener(eventName, preventDefaults);
         });
-        dropArea.removeEventListener('drop', handleDrop);
+        dropArea.removeEventListener("drop", handleDrop);
       };
     }
   }, []);
 
   const handleFiles = (files) => {
     const newImages = [];
-    [...files].forEach(file => {
-      if (file.type.startsWith('image/')) {
+    [...files].forEach((file) => {
+      if (file.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.onload = (e) => {
           newImages.push(e.target.result);
           if (newImages.length === files.length) {
-            setImages(prevImages => [...prevImages, ...newImages]);
+            setImages((prevImages) => [...prevImages, ...newImages]);
           }
         };
         reader.readAsDataURL(file);
       } else {
-        alert('Only image files are allowed!');
+        alert("Only image files are allowed!");
       }
     });
   };
@@ -77,7 +85,11 @@ function UploadImage() {
 
   return (
     <div className="col-span-full">
-      <div id="drop-area" ref={dropAreaRef} className="flex justify-center items-center rounded-lg border border-dashed border-gray-300/25 px-6 py-5">
+      <div
+        id="drop-area"
+        ref={dropAreaRef}
+        className="flex justify-center items-center rounded-lg border border-dashed border-gray-300/25 px-6 py-5"
+      >
         <div className="text-center">
           {images.length === 0 && (
             <svg
@@ -117,7 +129,11 @@ function UploadImage() {
           <div className="grid grid-cols-5 gap-4 mt-6">
             {images.map((src, index) => (
               <div key={index} className="bg-white shadow rounded-lg p-4">
-                <img src={src} alt="uploaded preview" className="w-full h-auto" />
+                <img
+                  src={src}
+                  alt="uploaded preview"
+                  className="w-full h-auto"
+                />
               </div>
             ))}
           </div>
