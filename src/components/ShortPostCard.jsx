@@ -5,7 +5,13 @@ const ShortPostCard = ({ post }) => {
   return (
     <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg">
       <Image
-        src={post.imageData[0].imageUrl}
+        src={
+          post.imageData.length > 0
+            ? post.imageData[0].imageUrl
+              ? post.imageData[0].imageUrl
+              : "/noimage.png"
+            : "/noimage.png"
+        }
         alt="asfsa"
         width={9999}
         height={9999}

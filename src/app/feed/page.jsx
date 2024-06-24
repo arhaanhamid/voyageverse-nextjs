@@ -11,9 +11,9 @@ const Feed = async () => {
 
   return (
     <div className={styles.container}>
-      <div>
+      {/* <div>
         <UserPostForm userId={session.user.id} />
-      </div>
+      </div> */}
       <div>
         {posts.length > 0 &&
           posts.map((post) => (

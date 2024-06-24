@@ -1,14 +1,14 @@
-
 // components/PostModal.js
-"use client"
-import styles from "@/components/userPostForm.module.css"
+"use client";
+import styles from "@/components/userPostForm.module.css";
 import { useState, useEffect } from "react";
 import { uploadImage } from "@/lib/action";
-import CountrySelector from "@/app/countryselector/page";
 import Uploadimage from "@/components/uploadimage/Uploadimage";
+import LocationSelect from "./locationSelect/LocationSelect";
 
-const PostModal = ({ userId }) => {
+const PostModal = ({ session }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     const openButton = document.getElementById("openButton");
@@ -23,7 +23,6 @@ const PostModal = ({ userId }) => {
       setModalOpen(false);
       document.body.style.overflow = "auto"; // Enable scrolling
     };
-
 
     openButton.addEventListener("click", openModal);
     closeButton.addEventListener("click", closeModal);
@@ -40,11 +39,13 @@ const PostModal = ({ userId }) => {
       {/* Background overlay */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity ${
-          modalOpen ? "opacity-100 pointer-events-auto backdrop-blur-sm" : "opacity-0 pointer-events-none"
+          modalOpen
+            ? "opacity-100 pointer-events-auto backdrop-blur-sm"
+            : "opacity-0 pointer-events-none"
         }`}
         aria-hidden="true"
       ></div>
-      
+
       {/* Modal */}
       <div
         id="modal"
@@ -79,8 +80,27 @@ const PostModal = ({ userId }) => {
             </button>
             <form action={uploadImage} className={styles.form}>
               <div className={styles.form_group}>
-                <input type="text" id="title" name="title" placeholder="Title..." />
-                <input type="hidden" name="userId" value={userId} />
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Title..."
+                />
+                {/* <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="location..."
+                /> */}
+                {/* <input
+                  id="images"
+                  name="images"
+                  type="file"
+                  className="sr-only"
+                  accept="image/*"
+                  multiple
+                /> */}
+                <input type="hidden" name="userId" value={session.user.id} />
               </div>
               <div className={styles.form_group}>
                 <textarea
@@ -91,8 +111,12 @@ const PostModal = ({ userId }) => {
                   placeholder="Description..."
                 ></textarea>
               </div>
-              <CountrySelector />
-              <Uploadimage onImageSelect={() => {}} />
+              <LocationSelect />
+              <Uploadimage
+                onImageSelect={() => {}}
+                setImages={setImages}
+                images={images}
+              />
               <div className={styles.group_btn}>
                 <button
                   id="closeButton"
@@ -101,7 +125,10 @@ const PostModal = ({ userId }) => {
                 >
                   Cancel
                 </button>
-                <button className={`bg-white ${styles.form_submit_btn}`} type="submit">
+                <button
+                  className={`bg-white ${styles.form_submit_btn}`}
+                  type="submit"
+                >
                   Submit
                 </button>
               </div>
