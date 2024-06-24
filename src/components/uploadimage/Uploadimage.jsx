@@ -4,7 +4,7 @@ function UploadImage() {
   const [images, setImages] = useState([]);
   const dropAreaRef = useRef(null);
   const fileInputRef = useRef(null);
-
+  
   useEffect(() => {
     const dropArea = dropAreaRef.current;
 
