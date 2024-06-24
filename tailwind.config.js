@@ -13,6 +13,10 @@ module.exports = {
         "custom-gradient":
           "linear-gradient(180deg, transparent, rgba(0,0,0,0.7))",
       },
+      boxShadow: {
+        "custom-shadow":
+          "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;",
+      },
     },
   },
   plugins: [flowbite.plugin()],

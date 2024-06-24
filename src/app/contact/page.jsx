@@ -55,26 +55,32 @@ const ContactPage = () => {
       <div className={styles.imgContainer}>
         <Image src="/contact.png" alt="" fill className={styles.img} />
       </div>
-      <div className={styles.formContainer}>
-        {/* <HydrationTestNoSSR/> */}
-        {/* <div suppressHydrationWarning>{a}</div> */}
+      <div className={styles.form_container}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <input type="text" placeholder="Name and Surname" name="name" />
-          <input
-            type="text"
-            placeholder="Email Address"
-            name="email"
-            required
-          />
-          <input type="text" placeholder="Subject" name="subject" />
-          <textarea
-            name="message"
-            id="message"
-            cols="30"
-            rows="10"
-            required
-            placeholder="Message"
-          ></textarea>
+          <div className={styles.form_group}>
+            <input type="text" placeholder="Name and Surname" name="name" />
+          </div>
+          <div className={styles.form_group}>
+            <input
+              type="text"
+              placeholder="Email Address"
+              name="email"
+              required
+            />
+          </div>
+          <div className={styles.form_group}>
+            <input type="text" placeholder="Subject" name="subject" />
+          </div>
+          <div className={styles.form_group}>
+            <textarea
+              name="message"
+              id="message"
+              cols="30"
+              rows="10"
+              required
+              placeholder="Message"
+            ></textarea>
+          </div>
           <button
             type="submit"
             className={

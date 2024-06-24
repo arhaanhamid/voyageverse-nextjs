@@ -24,9 +24,12 @@ const PostModal = ({ userId }) => {
       document.body.style.overflow = "auto"; // Enable scrolling
     };
 
+
     openButton.addEventListener("click", openModal);
     closeButton.addEventListener("click", closeModal);
     return () => {
+      openButton.removeEventListener("click", openModal);
+      closeButton.removeEventListener("click", closeModal);
       openButton.removeEventListener("click", openModal);
       closeButton.removeEventListener("click", closeModal);
     };

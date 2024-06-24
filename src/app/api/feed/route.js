@@ -5,11 +5,8 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
   try {
     connectToDb();
-    console.log("INSIDE API BLOG ROUTE");
-
     const posts = await Post.find();
 
-    console.log(posts);
     return NextResponse.json(posts);
   } catch (err) {
     console.log(err);
