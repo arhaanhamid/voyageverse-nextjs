@@ -51,15 +51,15 @@ const WidePostCard = async ({ post }) => {
         </div>
 
         <div className="px-4 lg:px-0 mt-12 text-gray-400 max-w-screen-md mx-auto text-lg leading-relaxed">
-          <p className="pb-6">
+          <p className="mt-2 line-clamp-3 text-sm/relaxed text-white/95">
             {post.desc}...
-            <Link
-              className="text-blue-600 underline font-bold"
-              href={`/feed/${post._id.toString()}`}
-            >
-              Read More...
-            </Link>
           </p>
+          <Link
+            className="text-blue-600 underline font-bold"
+            href={`/feed/${post._id.toString()}`}
+          >
+            Read More...
+          </Link>
         </div>
       </main>
     </div>
