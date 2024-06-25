@@ -19,18 +19,18 @@ const AnimatedNumbers = dynamic(
 const achievementsList = [
   {
     metric: "Users",
-    value: "100",
+    value: "1000",
     postfix: "+",
   },
   {
     // prefix: "~",
     metric: "Posts",
-    value: "1000",
+    value: "100",
     postfix: "+",
   },
   {
-    metric: "Years",
-    value: "10",
+    metric: "Months",
+    value: "6",
     postfix: "+",
   },
 ];
@@ -42,9 +42,13 @@ const AboutPage = () => {
         {/* <h2 className={styles.subtitle}>About this App</h2> */}
         <h1 className={styles.title}>Welcome to VoyageVerse.</h1>
         <p className={styles.desc}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem,
-          inventore sunt velit molestias totam rem odio in quisquam dicta quidem
-          consequatur quis ad alias cum eius neque sed et veniam!
+          Voyageverse is a cutting-edge full-stack web platform designed to be
+          the ultimate travel companion for adventurers and explorers alike.
+          Imagine having a one-stop resource that provides you with all the
+          essential information about a destination before you even set foot
+          there. Whether you're planning a weekend getaway or an extended
+          vacation, Voyageverse ensures you're well-prepared and excited for
+          your journey.
         </p>
         <div className={styles.boxes}>
           {achievementsList.map((achievement, index) => {

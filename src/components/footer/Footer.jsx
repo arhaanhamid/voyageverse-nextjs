@@ -3,9 +3,9 @@ import styles from "./footer.module.css";
 const Footer = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>Suham Hamid</div>
+      <div className={styles.logo}>VoyageVerse</div>
       <div className={styles.text}>
-        {`Suham's personal project © All rights reserved.`}
+        {`© All rights reserved under VoyageVerse.`}
       </div>
     </div>
   );

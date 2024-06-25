@@ -28,22 +28,33 @@ const links = [
   },
 ];
 
-const Links = ({ session}) => {
+const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
-
   return (
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
           <NavLink item={link} key={link.title} />
         ))}
+
+        <button
+          id="openButton"
+          className={`${
+            !session && "text-gray-400"
+          } mr-5 flex justify-center items-center gap-1.5 font-medium`}
+          disabled={!session ? true : false}
+        >
+          <span className="material-symbols-outlined">add</span>
+          Create
+        </button>
+
         {session?.user ? (
           <>
             {session.user?.isAdmin && (
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
 
-            {!session.user?.isAdmin && (
+            {/* {!session.user?.isAdmin && (
               <button
                 id="openButton"
                 className="mr-5 flex justify-center items-center gap-1.5 font-medium"
@@ -52,8 +63,7 @@ const Links = ({ session}) => {
                 <span className="material-symbols-outlined">add</span>
                 Create
               </button>
-            )}
-
+            )} */}
             {!session.user?.isAdmin && (
               <Link href="/profile">
                 <Image

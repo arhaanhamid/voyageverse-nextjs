@@ -113,7 +113,7 @@ const PostModal = () => {
               </div>
               {/* <Uploadimage
                 onImageSelect={() => {}}
-                  setImages={setImages}
+                setImages={setImages}
                 images={images}
               /> */}
 
