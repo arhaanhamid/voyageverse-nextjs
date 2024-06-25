@@ -9,8 +9,11 @@ import bcrypt from "bcryptjs";
 import { v2 as cloudinary } from "cloudinary";
 
 export const uploadData = async function (formData) {
-  const { title, desc, userId, location } = Object.fromEntries(formData);
+  const { title, desc, location } = Object.fromEntries(formData);
   const imageData = [];
+
+  const session = await auth();
+  const userId = session.user.id;
 
   const files = formData.getAll("images");
 

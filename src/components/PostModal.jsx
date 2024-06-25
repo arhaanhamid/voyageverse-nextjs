@@ -1,33 +1,16 @@
-// components/PostModal.js
 "use client";
 import styles from "@/components/userPostForm.module.css";
 import { useState, useEffect } from "react";
 import { uploadData } from "@/lib/action";
 import Uploadimage from "@/components/uploadimage/Uploadimage";
 import LocationSelect from "./locationSelect/LocationSelect";
-import { auth } from "@/lib/auth";
-import { getUser } from "@/lib/data";
 
 const PostModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [images, setImages] = useState([]);
   const [location, setLocation] = useState("");
-  const [user, setUser] = useState("You");
 
-  console.log(user);
   useEffect(() => {
-    const fetchUser = async () => {
-      console.log("user");
-      try {
-        const session = await auth();
-
-        // const user = await getUser(session.userId)
-        setUser(session);
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
-    fetchUser();
     const openButton = document.getElementById("openButton");
     const closeButton = document.getElementById("closeButton");
 

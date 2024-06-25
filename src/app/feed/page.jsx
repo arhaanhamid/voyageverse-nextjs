@@ -7,18 +7,12 @@ import WidePostCard from "@/components/WidePostCard";
 const Feed = async () => {
   const posts = await getPosts();
   const session = await auth();
-  const user = await getUser(session.user.id);
 
   return (
     <div className={styles.container}>
-      {/* <div>
-        <UserPostForm userId={session.user.id} />
-      </div> */}
       <div>
         {posts.length > 0 &&
-          posts.map((post) => (
-            <WidePostCard post={post} user={user} key={post._id} />
-          ))}
+          posts.map((post) => <WidePostCard post={post} key={post._id} />)}
       </div>
     </div>
   );

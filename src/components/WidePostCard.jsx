@@ -1,8 +1,10 @@
+import { getUser } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-const WidePostCard = ({ post, user }) => {
+const WidePostCard = async ({ post }) => {
   const createdDate = new Date(post.createdAt);
+  const user = await getUser(post.userId);
 
   return (
     <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 shadow-custom-shadow">
