@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 
 import { v2 as cloudinary } from "cloudinary";
 
-export const uploadImage = async function (formData) {
+export const uploadData = async function (formData) {
   const { title, desc, userId, location } = Object.fromEntries(formData);
   const imageData = [];
 
@@ -18,6 +18,7 @@ export const uploadImage = async function (formData) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    console.log(title, desc, location, userId, buffer);
     await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
@@ -45,12 +46,6 @@ export const uploadImage = async function (formData) {
 
   try {
     connectToDb();
-    // const post = await Post.findOne({ slug: slug });
-
-    // if (post) {
-    //   return { error: "Please enter a unique slug value as this is taken." };
-    // }
-    console.log(imageData);
     const newPost = new Post({
       title,
       desc,

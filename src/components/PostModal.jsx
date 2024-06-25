@@ -2,15 +2,32 @@
 "use client";
 import styles from "@/components/userPostForm.module.css";
 import { useState, useEffect } from "react";
-import { uploadImage } from "@/lib/action";
+import { uploadData } from "@/lib/action";
 import Uploadimage from "@/components/uploadimage/Uploadimage";
 import LocationSelect from "./locationSelect/LocationSelect";
+import { auth } from "@/lib/auth";
+import { getUser } from "@/lib/data";
 
-const PostModal = ({ session }) => {
+const PostModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [images, setImages] = useState([]);
+  const [location, setLocation] = useState("");
+  const [user, setUser] = useState("You");
 
+  console.log(user);
   useEffect(() => {
+    const fetchUser = async () => {
+      console.log("user");
+      try {
+        const session = await auth();
+
+        // const user = await getUser(session.userId)
+        setUser(session);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+    fetchUser();
     const openButton = document.getElementById("openButton");
     const closeButton = document.getElementById("closeButton");
 
@@ -78,7 +95,8 @@ const PostModal = ({ session }) => {
                 />
               </svg>
             </button>
-            <form action={uploadImage} className={styles.form}>
+
+            <form action={uploadData} className={styles.form}>
               <div className={styles.form_group}>
                 <input
                   type="text"
@@ -86,21 +104,8 @@ const PostModal = ({ session }) => {
                   name="title"
                   placeholder="Title..."
                 />
-                {/* <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  placeholder="location..."
-                /> */}
-                {/* <input
-                  id="images"
-                  name="images"
-                  type="file"
-                  className="sr-only"
-                  accept="image/*"
-                  multiple
-                /> */}
-                <input type="hidden" name="userId" value={session.user.id} />
+                {/* <input type="hidden" name="userId" value={user.} /> */}
+                <input type="hidden" name="location" value={location} />
               </div>
               <div className={styles.form_group}>
                 <textarea
@@ -111,12 +116,24 @@ const PostModal = ({ session }) => {
                   placeholder="Description..."
                 ></textarea>
               </div>
-              <LocationSelect />
-              <Uploadimage
+
+              <LocationSelect location={location} setLocation={setLocation} />
+
+              <div className={styles.form_group}>
+                <input
+                  type="file"
+                  id="images"
+                  name="images"
+                  accept="image/*"
+                  multiple
+                />
+              </div>
+              {/* <Uploadimage
                 onImageSelect={() => {}}
-                setImages={setImages}
+                  setImages={setImages}
                 images={images}
-              />
+              /> */}
+
               <div className={styles.group_btn}>
                 <button
                   id="closeButton"

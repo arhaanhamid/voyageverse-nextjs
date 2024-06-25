@@ -1,23 +1,30 @@
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 
 function UploadImage({ setImages, images }) {
-  // const [images, setImages] = useState([]);
+  const [tempImages, setTempImages] = useState([]);
   const dropAreaRef = useRef(null);
   const fileInputRef = useRef(null);
-  console.log("inside uploadImage method:", images);
+
   useEffect(() => {
     const dropArea = dropAreaRef.current;
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      handleFiles(files);
+    }
 
     if (dropArea) {
       // Prevent default drag behaviors
       ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
         dropArea.addEventListener(eventName, preventDefaults, false);
       });
-
-      function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
 
       // Highlight drop area when item is dragged over it
       ["dragenter", "dragover"].forEach((eventName) => {
@@ -39,12 +46,6 @@ function UploadImage({ setImages, images }) {
       // Handle dropped files
       dropArea.addEventListener("drop", handleDrop, false);
 
-      function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        handleFiles(files);
-      }
-
       // Clean up event listeners on unmount
       return () => {
         ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
@@ -57,13 +58,14 @@ function UploadImage({ setImages, images }) {
 
   const handleFiles = (files) => {
     const newImages = [];
+
     [...files].forEach((file) => {
       if (file.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.onload = (e) => {
           newImages.push(e.target.result);
           if (newImages.length === files.length) {
-            setImages((prevImages) => [...prevImages, ...newImages]);
+            setTempImages((prevImages) => [...prevImages, ...newImages]);
           }
         };
         reader.readAsDataURL(file);
@@ -91,7 +93,7 @@ function UploadImage({ setImages, images }) {
         className="flex justify-center items-center rounded-lg border border-dashed border-gray-300/25 px-6 py-5"
       >
         <div className="text-center">
-          {images.length === 0 && (
+          {tempImages.length === 0 && (
             <svg
               className="mx-auto h-16 w-16 text-gray-300"
               viewBox="0 0 24 24"
@@ -127,15 +129,18 @@ function UploadImage({ setImages, images }) {
             PNG, JPG, GIF up to 10MB
           </p>
           <div className="grid grid-cols-5 gap-4 mt-6">
-            {images.map((src, index) => (
-              <div key={index} className="bg-white shadow rounded-lg p-4">
-                <img
-                  src={src}
-                  alt="uploaded preview"
-                  className="w-full h-auto"
-                />
-              </div>
-            ))}
+            {tempImages.map((image, index) => {
+              console.log("Inside Map:", image);
+              return (
+                <div key={index} className="bg-white shadow rounded-lg p-4">
+                  <img
+                    src={image}
+                    alt="uploaded preview"
+                    className="w-full h-auto"
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

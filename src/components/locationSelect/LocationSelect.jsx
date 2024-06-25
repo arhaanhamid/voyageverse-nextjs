@@ -2,11 +2,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const LocationSelect = () => {
+const LocationSelect = ({ location, setLocation }) => {
   const [countries, setCountries] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -14,9 +12,7 @@ const LocationSelect = () => {
         const response = await axios.get(
           "https://countriesnow.space/api/v0.1/countries/states"
         );
-        // console.log(response);
         const countryNames = response.data.data.map((country) => country.name); // Adjusted to match response structure
-        // console.log(countryNames);
         setCountries(countryNames);
       } catch (error) {
         console.error("Error fetching countries:", error);
@@ -27,16 +23,17 @@ const LocationSelect = () => {
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    setQuery(value);
+    setLocation(value);
+
     const filtered = countries.filter((country) =>
       country.toLowerCase().includes(value.toLowerCase())
     );
+
     setFilteredCountries(filtered);
   };
 
   const handleSelectCountry = (country) => {
-    setSelectedCountry(country);
-    setQuery(country);
+    setLocation(country);
     setFilteredCountries([]);
   };
 
@@ -44,7 +41,7 @@ const LocationSelect = () => {
     <div className="relative" id="select-container">
       <input
         type="text"
-        value={query}
+        value={location}
         onChange={handleInputChange}
         placeholder="Search for a country"
         className="bg-transparent w-full px-4 py-2 border border-[#414141] rounded-md focus:outline-none focus:ring-1 focus:ring-[#e81cff] text-white "
@@ -53,7 +50,7 @@ const LocationSelect = () => {
       <ul
         id="countrySelector"
         className={`${
-          query.length > 0 ? "" : "hidden"
+          location.length > 0 ? "" : "hidden"
         } absolute left-0 right-0 mt-2 bg-white border border-[#414141] rounded-md shadow-lg z-10 max-h-60 overflow-y-auto`}
       >
         {filteredCountries &&

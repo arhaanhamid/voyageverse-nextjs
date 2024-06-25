@@ -1,10 +1,10 @@
 import styles from "@/components/userPostForm.module.css";
-import { uploadImage } from "@/lib/action";
+import { uploadData } from "@/lib/action";
 
 function UserPostForm({ userId }) {
   return (
     <div className={styles.form_container}>
-      <form action={uploadImage} className={styles.form}>
+      <form action={uploadData} className={styles.form}>
         <div className={styles.form_group}>
           <input type="text" id="title" name="title" placeholder="Title..." />
           <input type="hidden" name="userId" value={userId} />
