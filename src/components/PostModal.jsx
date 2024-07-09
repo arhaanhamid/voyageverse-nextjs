@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/components/userPostForm.module.css";
+import styles from "@/components/postModal.module.css";
 import { useState, useEffect } from "react";
 import { uploadData } from "@/lib/action";
 import Uploadimage from "@/components/uploadimage/Uploadimage";
@@ -113,7 +113,7 @@ const PostModal = () => {
               </div>
               {/* <Uploadimage
                 onImageSelect={() => {}}
-                  setImages={setImages}
+                setImages={setImages}
                 images={images}
               /> */}
 
