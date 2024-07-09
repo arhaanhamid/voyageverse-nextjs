@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/components/userPostForm.module.css";
+import styles from "@/components/postModal.module.css";
 import { useState, useEffect } from "react";
 import { uploadData } from "@/lib/action";
 import Uploadimage from "@/components/uploadimage/Uploadimage";

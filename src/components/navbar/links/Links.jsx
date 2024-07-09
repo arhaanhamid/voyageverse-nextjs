@@ -1,5 +1,3 @@
-// components/Links.js
-
 "use client";
 
 import { useState } from "react";
@@ -54,16 +52,6 @@ const Links = ({ session }) => {
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
 
-            {/* {!session.user?.isAdmin && (
-              <button
-                id="openButton"
-                className="mr-5 flex justify-center items-center gap-1.5 font-medium"
-               
-              >
-                <span className="material-symbols-outlined">add</span>
-                Create
-              </button>
-            )} */}
             {!session.user?.isAdmin && (
               <Link href="/profile">
                 <Image
