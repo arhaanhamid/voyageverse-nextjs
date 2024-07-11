@@ -3,7 +3,6 @@ import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const getPosts = async () => {
-  console.log("kkkk");
   try {
     connectToDb();
     const posts = await Post.find();

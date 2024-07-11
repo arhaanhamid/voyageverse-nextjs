@@ -1,11 +1,8 @@
-import { getUser } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
+import { format } from "date-fns";
 
 const WidePostCard = async ({ post }) => {
-  const createdDate = new Date(post.createdAt);
-  const user = await getUser(post.userId);
-
   return (
     <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 shadow-custom-shadow">
       <main>
@@ -33,17 +30,17 @@ const WidePostCard = async ({ post }) => {
                 alt="user_image"
                 width={100}
                 height={100}
-                src={user.img}
+                src={post.userImg}
                 className="h-10 w-10 rounded-full mr-2 object-cover "
               />
               <div>
                 <p className="font-semibold text-gray-200 text-sm">
                   {" "}
-                  {user.username}{" "}
+                  {post.username}{" "}
                 </p>
                 <p className="font-semibold text-gray-400 text-xs">
                   {" "}
-                  {createdDate.toLocaleString()}{" "}
+                  {post.createdDate.toLocaleString()}{" "}
                 </p>
               </div>
             </div>
