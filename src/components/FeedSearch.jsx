@@ -1,42 +1,48 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import WidePostCard from "@/components/WidePostCard";
 import { getPosts } from "@/lib/data";
+import ShortPostCard from "./ShortPostCard";
+import Skeleton from "./Skeleton";
 
-const FeedSearch = () => {
+const FeedSearch = ({ posts }) => {
+  const parsedPosts = JSON.parse(posts);
+
   const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
+  // const [filteredPosts, setFilteredPosts] = useState([]);
 
   const handleSearchChange = (e) => {
+    e.preventDefault();
     setSearchText(e.target.value);
   };
+  // console.log("parsedPosts");
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const posts = await getPosts();
-        setPosts(posts);
-        console.log(posts);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    }
-    fetchPosts();
-  }, []);
-
-  // useEffect for Searching tag/username/email/prompt
   // useEffect(() => {
-  //   const searchedPosts = posts.filter((post) => {
-  //     const fullPost = post.title;
-  //     const regex = new RegExp(searchText, "i");
-  //     return regex.test(fullPost);
-  //   });
+  //   if (searchText === "") {
+  //     setFilteredPosts(parsedPosts);
+  //   }
+  // else {
+  //   setFilteredPosts(
+  //     parsedPosts.filter((post) => {
+  //       const regex = new RegExp(searchText, "i");
+  //       return regex.test(post.title);
+  //     })
+  //   );
+  // }
+  // }, [searchText, parsedPosts]);
 
-  //   setFilteredPosts(searchedPosts);
-  // }, [searchText]);
+  const filteredPosts = useMemo(() => {
+    if (!searchText) return parsedPosts;
 
-  // console.log(filteredPosts);
+    const regex = new RegExp(searchText, "i");
+    return parsedPosts.filter((post) => regex.test(post.title));
+  }, [searchText, parsedPosts]);
 
   return (
     <div className="flex-col w-[70%] max-w-[1000px] mt-0 mb-0 mr-auto ml-auto">
@@ -66,10 +72,24 @@ const FeedSearch = () => {
         </svg>
       </div>
       <div>
-        {/* {filteredPosts.length > 0 &&
+        {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <WidePostCard post={post} key={post._id} />
-          ))} */}
+            <Suspense fallback={<Skeleton />} key={post._id}>
+              <WidePostCard post={post} />
+            </Suspense>
+          ))
+        ) : (
+          <div className="text-black">
+            <h1 className="text-4xl font-bold mb-8 text-center">
+              No results for{" "}
+              <span className="font-extrabold">&quot;{searchText}&quot;</span>
+            </h1>
+            {/* <p className="text-xl font-medium text-center">
+              Try searching for something else, or check your Search settings to
+              see if they’re protecting you from potentially sensitive content.
+            </p> */}
+          </div>
+        )}
       </div>
     </div>
   );

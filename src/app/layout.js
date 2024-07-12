@@ -4,6 +4,9 @@ import "./globalicons.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import PostModal from "@/components/PostModal";
+import { Suspense } from "react";
+import Loading from "./loading";
+import "@smastrom/react-rating/style.css";
 // import { auth } from "@/lib/auth";
 
 // const session = await auth();
@@ -25,7 +28,11 @@ export default function RootLayout({ children }) {
           <div className="blur-overlay"></div>
           <Navbar />
           <PostModal />
-          <div className="content-container">{children}</div>
+
+          <Suspense fallback={<Loading />}>
+            <div className="content-container">{children}</div>
+          </Suspense>
+
           <Footer />
         </div>
       </body>

@@ -1,13 +1,11 @@
-import { getUser } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
+import { Rating } from "./Rating";
 
 const WidePostCard = async ({ post }) => {
-  const createdDate = new Date(post.createdAt);
-  const user = await getUser(post.userId);
-
   return (
     <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 shadow-custom-shadow">
+      <Rating ratingValue={3.5} />
       <main>
         <div className="w-full relative" style={{ height: 24 + "em" }}>
           <div className="absolute left-0 bottom-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-black/70"></div>
@@ -33,17 +31,17 @@ const WidePostCard = async ({ post }) => {
                 alt="user_image"
                 width={100}
                 height={100}
-                src={user.img}
+                src={post.userImg}
                 className="h-10 w-10 rounded-full mr-2 object-cover "
               />
               <div>
                 <p className="font-semibold text-gray-200 text-sm">
                   {" "}
-                  {user.username}{" "}
+                  {post.username}{" "}
                 </p>
                 <p className="font-semibold text-gray-400 text-xs">
                   {" "}
-                  {createdDate.toLocaleString()}{" "}
+                  {post.createdDate.toLocaleString()}{" "}
                 </p>
               </div>
             </div>
