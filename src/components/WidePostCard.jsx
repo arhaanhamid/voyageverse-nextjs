@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
+import { Rating } from "./Rating";
 
 const WidePostCard = async ({ post }) => {
   return (
     <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 shadow-custom-shadow">
+      <Rating ratingValue={3.5} />
       <main>
         <div className="w-full relative" style={{ height: 24 + "em" }}>
           <div className="absolute left-0 bottom-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-black/70"></div>

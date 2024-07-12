@@ -6,6 +6,7 @@ import Footer from "@/components/footer/Footer";
 import PostModal from "@/components/PostModal";
 import { Suspense } from "react";
 import Loading from "./loading";
+import "@smastrom/react-rating/style.css";
 // import { auth } from "@/lib/auth";
 
 // const session = await auth();

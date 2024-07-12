@@ -72,12 +72,24 @@ const FeedSearch = ({ posts }) => {
         </svg>
       </div>
       <div>
-        {filteredPosts.length > 0 &&
+        {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
             <Suspense fallback={<Skeleton />} key={post._id}>
               <WidePostCard post={post} />
             </Suspense>
-          ))}
+          ))
+        ) : (
+          <div className="text-black">
+            <h1 className="text-4xl font-bold mb-8 text-center">
+              No results for{" "}
+              <span className="font-extrabold">&quot;{searchText}&quot;</span>
+            </h1>
+            {/* <p className="text-xl font-medium text-center">
+              Try searching for something else, or check your Search settings to
+              see if they’re protecting you from potentially sensitive content.
+            </p> */}
+          </div>
+        )}
       </div>
     </div>
   );
