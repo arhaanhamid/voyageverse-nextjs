@@ -3,12 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: rgb(255, 255, 255);
+  color: black;
   /* background-color: red; */
   box-shadow: rgba(0, 0, 0, 0.95) 0px -10px 10px -10px;
   padding: 0 100px;
-
-
+  background-color: #ADB5BD;
 }
 
 .logo{

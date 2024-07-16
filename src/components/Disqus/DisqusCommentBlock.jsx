@@ -3,9 +3,8 @@ import { DiscussionEmbed } from "disqus-react";
 import React from "react";
 
 const DisqusCommentBlock = ({ shortname, config }) => {
-  console.log(shortname, config);
   return (
-    <div>
+    <div className="">
       <DiscussionEmbed
         shortname={shortname}
         config={{
