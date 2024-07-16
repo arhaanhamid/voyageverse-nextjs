@@ -4,7 +4,7 @@ import { Rating } from "./Rating";
 
 const WidePostCard = async ({ post }) => {
   return (
-    <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 shadow-custom-shadow">
+    <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 ">
       <Rating ratingValue={3.5} />
       <main>
         <div className="w-full relative" style={{ height: 24 + "em" }}>
@@ -14,7 +14,7 @@ const WidePostCard = async ({ post }) => {
             alt="asfsa"
             width={9999}
             height={9999}
-            className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-tl-xl rounded-tr-xl"
+            className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-tl-xl rounded-tr-xl "
           />
           <div className="pb-4 px-10 absolute bottom-0 left-0 z-20">
             <a
@@ -31,7 +31,7 @@ const WidePostCard = async ({ post }) => {
                 alt="user_image"
                 width={100}
                 height={100}
-                src={post.userImg}
+                src={post.userImg ? post.userImg : "/noavatar.png"}
                 className="h-10 w-10 rounded-full mr-2 object-cover "
               />
               <div>

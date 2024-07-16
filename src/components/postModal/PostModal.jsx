@@ -1,9 +1,9 @@
 "use client";
-import styles from "@/components/postModal.module.css";
+import styles from "@/components/postModal/postModal.module.css";
 import { useState, useEffect } from "react";
 import { uploadData } from "@/lib/action";
 import Uploadimage from "@/components/uploadimage/Uploadimage";
-import LocationSelect from "./locationSelect/LocationSelect";
+import LocationSelect from "./LocationSelect";
 
 const PostModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -12,25 +12,17 @@ const PostModal = () => {
 
   useEffect(() => {
     const openButton = document.getElementById("openButton");
-    const closeButton = document.getElementById("closeButton");
 
     const openModal = () => {
+      console.log("openModal");
       setModalOpen(true);
       document.body.style.overflow = "hidden"; // Disable scrolling
     };
 
-    const closeModal = () => {
-      setModalOpen(false);
-      document.body.style.overflow = "auto"; // Enable scrolling
-    };
-
     openButton.addEventListener("click", openModal);
-    closeButton.addEventListener("click", closeModal);
+
     return () => {
       openButton.removeEventListener("click", openModal);
-      closeButton.removeEventListener("click", closeModal);
-      openButton.removeEventListener("click", openModal);
-      closeButton.removeEventListener("click", closeModal);
     };
   }, []);
 
@@ -59,9 +51,11 @@ const PostModal = () => {
         <div className={styles.form_container}>
           <div className="relative dark:bg-white rounded-lg max-w-lg mx-auto p-4 md:p-8 w-full h-full max-w-screen-lg">
             <button
-              id="closeButton"
               className="absolute top-0 right-0 mt-0.3 mr-1 text-white"
-              onClick={() => setModalOpen(false)}
+              onClick={() => {
+                setModalOpen(false);
+                document.body.style.overflow = "auto";
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -118,13 +112,15 @@ const PostModal = () => {
               /> */}
 
               <div className={styles.group_btn}>
-                <button
-                  id="closeButton"
+                <div
                   className={`bg-[#DC2626] ${styles.form_submit_btn}`}
-                  onClick={() => setModalOpen(false)}
+                  onClick={() => {
+                    document.body.style.overflow = "auto";
+                    setModalOpen(false);
+                  }}
                 >
                   Cancel
-                </button>
+                </div>
                 <button
                   className={`bg-white ${styles.form_submit_btn}`}
                   type="submit"

@@ -3,13 +3,12 @@ import "./globals.css";
 import "./globalicons.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import PostModal from "@/components/PostModal";
+import PostModal from "@/components/postModal/PostModal";
 import { Suspense } from "react";
 import Loading from "./loading";
 import "@smastrom/react-rating/style.css";
-// import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 
-// const session = await auth();
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,15 +19,15 @@ export const metadata = {
   description: "Next.js Blog app description",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container">
-          <div className="blur-overlay"></div>
-          <Navbar />
+        <div className="w-full min-h-screen flex flex-col justify-between bg-[#DEE2E6]">
+          <Navbar session={session} />
           <PostModal />
-
           <Suspense fallback={<Loading />}>
             <div className="content-container">{children}</div>
           </Suspense>

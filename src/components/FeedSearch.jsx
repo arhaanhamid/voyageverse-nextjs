@@ -45,7 +45,7 @@ const FeedSearch = ({ posts }) => {
   }, [searchText, parsedPosts]);
 
   return (
-    <div className="flex-col w-[70%] max-w-[1000px] mt-0 mb-0 mr-auto ml-auto">
+    <div className="flex-col w-[70%] mt-0 mb-0 mr-auto ml-auto">
       <div className="relative mb-[50px] mt-[25px]">
         <input
           placeholder="Search..."

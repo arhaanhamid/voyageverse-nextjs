@@ -18,45 +18,34 @@
   box-sizing: border-box;
 }
 
-body {
-  color: var(--text);
-  background-image: linear-gradient(to bottom right, #1abc9c, #e67e22);
-  /* background-color: var(--bg); */
-  /* background-color: #1abc9c; */
-}
-
-.blur-overlay {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  background-image: url("/bg-2.jpg");
-  width: 100%;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center; 
-
-  z-index: -1;
-  -webkit-filter: blur(5px);
-  filter: blur(5px);
-}
-
 a {
   text-decoration: none;
   color: inherit;
 }
 
-.container {
+.sub-container {
+  position: relative; /* Establish stacking context */
+  overflow: hidden; /* Prevent horizontal overflow */
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 0px;
+  left: 0;
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 105vh; /* Set height to viewport height */
+  background-image: url("/hero_bg.webp"); /* Replace with your image path */
+  background-size: cover; /* Ensure image covers the entire overlay */
+  background-position: center;;
+  filter: blur(4px); /* Adjust blur amount as needed */
+  z-index: 1; /* Place behind the content container */
 }
-.content-container{
-  margin: 25px 100px;
-  padding-left: 50px;
-  padding-right: 50px;
+
+.content-container {
+  margin: 25px 150px;
+  padding: 0 25px
 }
+
 
 @media (max-width: 1536px) {
 
