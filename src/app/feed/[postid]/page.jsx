@@ -4,6 +4,9 @@ import PostUser from "@/components/postUser/PostUser";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 import DisqusCommentBlock from "@/components/Disqus/DisqusCommentBlock";
+import PostCrousel from "@/components/PostCrousel";
+import { Rating } from "@/components/Rating";
+import InteractionMenu from "@/components/postMenu/InteractionMenu";
 
 export const generateMetadata = async ({ params }) => {
   const { postid } = params;
@@ -19,21 +22,13 @@ export const generateMetadata = async ({ params }) => {
 const SinglePostPage = async ({ params }) => {
   const { postid } = params;
   const post = await getPost(postid);
+  const plainPost = JSON.stringify(post);
 
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.imgContainer}>
-          <Image
-            src={
-              post.imageData[0].imageUrl
-                ? post.imageData[0].imageUrl
-                : "/noimage.png"
-            }
-            alt="postimage"
-            fill
-            className={styles.img}
-          />
+        <div>
+          <PostCrousel plainPost={plainPost} />
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.title}>{post.title}</h1>
@@ -53,6 +48,9 @@ const SinglePostPage = async ({ params }) => {
           <div className={styles.content}>{post.desc}</div>
         </div>
       </div>
+
+      <InteractionMenu likes={10} dislikes={5} />
+
       <DisqusCommentBlock
         shortname="voyageverse-3"
         config={{

@@ -14,7 +14,6 @@ const PostModal = () => {
     const openButton = document.getElementById("openButton");
 
     const openModal = () => {
-      console.log("openModal");
       setModalOpen(true);
       document.body.style.overflow = "hidden"; // Disable scrolling
     };

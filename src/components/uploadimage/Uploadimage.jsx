@@ -130,7 +130,6 @@ function UploadImage({ setImages, images }) {
           </p>
           <div className="grid grid-cols-5 gap-4 mt-6">
             {tempImages.map((image, index) => {
-              console.log("Inside Map:", image);
               return (
                 <div key={index} className="bg-white shadow rounded-lg p-4">
                   <img
