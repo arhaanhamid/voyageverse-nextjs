@@ -57,6 +57,17 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    test: {
+      type: String,
+    },
+    prefs: {
+      likes: { type: Number },
+      dislikes: { type: Number },
+    },
+    userPrefs: {
+      likes: { type: Array },
+      dislikes: { type: Array },
+    },
   },
   { timestamps: true }
 );

@@ -13,6 +13,22 @@ export const getPosts = async () => {
   }
 };
 
+// export const updateManyData = async () => {
+//   try {
+//     connectToDb();
+
+//     await Post.updateMany(
+//       {},
+//       { $set: { userPrefs: { likes: [], dislikes: [] } } }
+//     );
+
+//     console.log("Updated Many Data");
+//   } catch (err) {
+//     console.log(err);
+//     throw new Error("Failed to fetch posts!");
+//   }
+// };
+
 export const getUserPosts = async (userId) => {
   try {
     connectToDb();
@@ -24,7 +40,7 @@ export const getUserPosts = async (userId) => {
   }
 };
 
-export const getRecentPosts = async (userId) => {
+export const getRecentPosts = async () => {
   try {
     connectToDb();
     const posts = await Post.find().sort({ createdAt: -1 }).limit(9);
