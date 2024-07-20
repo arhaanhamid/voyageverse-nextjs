@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { like, dislike, follow, share, flag } from "./PostSvg";
+import { like, dislike, share, flag } from "./PostSvg";
 
-const InteractionMenu = () => {
+const InteractionMenu = ({ likes, dislikes }) => {
+  // const [prefs, setPrefs] = useState[{ likes: likes, dislikes: dislikes }];
   const intMenu = [
     ["Like", like],
     ["Dislike", dislike],
-    ["Follow", follow],
     ["Share", share],
     ["Flag", flag],
   ];
@@ -14,7 +14,6 @@ const InteractionMenu = () => {
   const [vote, setVotes] = useState({
     like: false,
     dislike: false,
-    follow: false,
   });
 
   useEffect(() => {}, [vote]);
@@ -22,28 +21,17 @@ const InteractionMenu = () => {
   function handleClick(item) {
     const likeBtn = document.getElementById("Like_svg");
     const dislikeBtn = document.getElementById("Dislike_svg");
-    const followBtn = document.getElementById("Follow_svg");
-    const followSpan = document.getElementById("Follow_span");
 
     switch (item) {
       case "Like":
         setVotes({ like: true, dislike: false });
-        likeBtn.setAttribute("fill", "blue");
-        dislikeBtn.setAttribute("fill", "gray");
+        likeBtn.setAttribute("fill", "white");
+        dislikeBtn.setAttribute("fill", "black");
         break;
       case "Dislike":
         setVotes({ like: false, dislike: true });
-        dislikeBtn.setAttribute("fill", "blue");
-        likeBtn.setAttribute("fill", "gray");
-        break;
-      case "Follow":
-        vote.follow
-          ? (followBtn.setAttribute("fill", "gray"),
-            (followSpan.innerText = "Follow"))
-          : (followBtn.setAttribute("fill", "red"),
-            (followSpan.innerText = "Unfollow"));
-        setVotes({ ...setVotes, follow: !vote.follow });
-
+        dislikeBtn.setAttribute("fill", "white");
+        likeBtn.setAttribute("fill", "black");
         break;
       case "Share":
         break;
@@ -58,13 +46,24 @@ const InteractionMenu = () => {
     <div className="flex justify-center gap-10">
       {intMenu.map((item, index) => {
         const [label, SVG] = item;
+        console.log(label !== "Like");
         return (
-          <div key={index} onClick={() => handleClick(label)}>
-            <button className="flex flex-col items-center gap-2">
+          <div
+            key={index}
+            onClick={() => handleClick(label)}
+            className="flex items-center"
+          >
+            <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
               {<SVG id={label + "_svg"} />}
-              <span id={label + "_span"} className="text-xl">
-                {label}
-              </span>
+              {
+                <span id={label + "_span"} className="font-bold text-white">
+                  {label !== "Like" && label !== "Dislike"
+                    ? label
+                    : label === "Like"
+                    ? likes
+                    : dislikes}
+                </span>
+              }
             </button>
           </div>
         );
