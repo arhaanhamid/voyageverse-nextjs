@@ -33,12 +33,12 @@ a {
   top: 0px;
   left: 0;
   width: 100%;
-  height: 105vh; /* Set height to viewport height */
-  background-image: url("/hero_bg.webp"); /* Replace with your image path */
-  background-size: cover; /* Ensure image covers the entire overlay */
-  background-position: center;;
-  filter: blur(4px); /* Adjust blur amount as needed */
-  z-index: 1; /* Place behind the content container */
+  height: 105vh; 
+  background-image: url("/hero_bg.webp"); 
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px); 
+  z-index: 1; 
 }
 
 .content-container {
