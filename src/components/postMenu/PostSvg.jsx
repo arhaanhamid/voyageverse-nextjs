@@ -1,10 +1,27 @@
-export const dislike = ({ id }) => (
+export const like = ({ id, userPrefs }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="24px"
     viewBox="0 -960 960 960"
     width="24px"
-    fill="black"
+    fill={userPrefs.like ? "white" : "black"}
+    stroke="white"
+    strokeWidth="50"
+  >
+    <path
+      id={id}
+      d="M720-120H320v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h218q32 0 56 24t24 56v80q0 7-1.5 15t-4.5 15L794-168q-9 20-30 34t-44 14ZM240-640v520H80v-520h160Z"
+    />
+  </svg>
+);
+
+export const dislike = ({ id, userPrefs }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill={userPrefs.dislike ? "white" : "black"}
     stroke="white"
     strokeWidth="50"
   >
@@ -42,23 +59,6 @@ export const follow = ({ id }) => (
     <path
       id={id}
       d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"
-    />
-  </svg>
-);
-
-export const like = ({ id }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    height="24px"
-    viewBox="0 -960 960 960"
-    width="24px"
-    fill="black"
-    stroke="white"
-    strokeWidth="50"
-  >
-    <path
-      id={id}
-      d="M720-120H320v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h218q32 0 56 24t24 56v80q0 7-1.5 15t-4.5 15L794-168q-9 20-30 34t-44 14ZM240-640v520H80v-520h160Z"
     />
   </svg>
 );

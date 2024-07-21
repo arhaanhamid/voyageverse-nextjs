@@ -22,8 +22,15 @@ const SinglePostPage = async ({ params }) => {
   const { postid } = params;
   const post = await getPost(postid);
   const plainPost = JSON.stringify(post);
-  // const session = await auth();
-  // const userId = session.user.id;
+
+  const session = await auth();
+  const userId = session.user.id;
+
+  const userPrefs = await post.userPrefs.filter(
+    (item) => userId === item.userId
+  );
+
+  // await updateManyData();
 
   function handleClick() {
     console.log("follow clicked");
@@ -71,6 +78,12 @@ const SinglePostPage = async ({ params }) => {
       <InteractionMenu
         likes={post.prefs.likes}
         dislikes={post.prefs.dislikes}
+        userPrefs={
+          userPrefs.length > 0
+            ? JSON.stringify(userPrefs[0])
+            : { like: false, dislike: false, pending: true }
+        }
+        userId={userId}
       />
 
       <DisqusCommentBlock

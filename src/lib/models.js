@@ -34,6 +34,28 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const userPrefSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    like: {
+      type: Boolean,
+      default: false,
+    },
+    dislike: {
+      type: Boolean,
+      default: false,
+    },
+    pending: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  { _id: false }
+);
+
 const postSchema = new mongoose.Schema(
   {
     title: {
@@ -48,26 +70,22 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     imageData: {
       type: Array,
       required: true,
       unique: true,
     },
+
     location: {
       type: String,
       required: true,
     },
-    test: {
-      type: String,
-    },
     prefs: {
-      likes: { type: Number },
-      dislikes: { type: Number },
+      likes: { type: Number, default: 0 },
+      dislikes: { type: Number, default: 0 },
     },
-    userPrefs: {
-      likes: { type: Array },
-      dislikes: { type: Array },
-    },
+    userPrefs: [userPrefSchema],
   },
   { timestamps: true }
 );

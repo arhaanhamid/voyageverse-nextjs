@@ -1,8 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { like, dislike, share, flag } from "./PostSvg";
+import { updateInteraction } from "@/lib/action";
 
-const InteractionMenu = ({ likes, dislikes }) => {
+const InteractionMenu = ({
+  likes,
+  dislikes,
+  userPrefs = JSON.parse(userPrefs),
+  userId,
+}) => {
   // const [prefs, setPrefs] = useState[{ likes: likes, dislikes: dislikes }];
   const intMenu = [
     ["Like", like],
@@ -11,12 +17,35 @@ const InteractionMenu = ({ likes, dislikes }) => {
     ["Flag", flag],
   ];
 
-  const [vote, setVotes] = useState({
-    like: false,
-    dislike: false,
+  const [interaction, setInteraction] = useState({
+    like: userPrefs.like,
+    dislike: userPrefs.dislike,
+    pending: userPrefs.pending,
+    userId: userId,
   });
 
-  useEffect(() => {}, [vote]);
+  // const isInitialMount = useRef(true);
+
+  // useEffect(() => {
+  //   console.log("inside useeffect");
+  //   console.log(interaction);
+  //   console.log(isInitialMount);
+  //   async function updateData() {
+  //     try {
+  //       await updateInteraction(interaction);
+  //     } catch (error) {
+  //       console.error("Error updating interaction:", error);
+  //     }
+  //   }
+
+  //   if (isInitialMount.current) {
+  //     console.log("isInitialMount");
+  //     isInitialMount.current = false;
+  //   } else {
+  //     console.log("updateinh datra");
+  //     updateData();
+  //   }
+  // }, [interaction]);
 
   function handleClick(item) {
     const likeBtn = document.getElementById("Like_svg");
@@ -24,12 +53,13 @@ const InteractionMenu = ({ likes, dislikes }) => {
 
     switch (item) {
       case "Like":
-        setVotes({ like: true, dislike: false });
+        setInteraction({ like: true, dislike: false, pending: false });
         likeBtn.setAttribute("fill", "white");
         dislikeBtn.setAttribute("fill", "black");
+
         break;
       case "Dislike":
-        setVotes({ like: false, dislike: true });
+        setInteraction({ like: false, dislike: true, pending: false });
         dislikeBtn.setAttribute("fill", "white");
         likeBtn.setAttribute("fill", "black");
         break;
@@ -54,7 +84,7 @@ const InteractionMenu = ({ likes, dislikes }) => {
             className="flex items-center"
           >
             <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
-              {<SVG id={label + "_svg"} />}
+              {<SVG id={label + "_svg"} userPrefs={userPrefs} />}
               {
                 <span id={label + "_span"} className="font-bold text-white">
                   {label !== "Like" && label !== "Dislike"
