@@ -55,6 +55,7 @@ export const uploadData = async function (formData) {
       location,
       userId,
       imageData,
+      userPrefs: [{ userId: userId }],
     });
 
     await newPost.save();
@@ -63,6 +64,21 @@ export const uploadData = async function (formData) {
     revalidatePath("/blog");
     revalidatePath("/admin");
     revalidatePath("/profile");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
+
+  revalidatePath("/");
+};
+
+export const updateInteraction = async (data) => {
+  console.log("Update interaction Data");
+  console.log(data);
+  try {
+    connectToDb();
+
+    console.log("Interaction updated!");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };

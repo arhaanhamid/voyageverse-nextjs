@@ -17,10 +17,7 @@ export const getPosts = async () => {
 //   try {
 //     connectToDb();
 
-//     await Post.updateMany(
-//       {},
-//       { $set: { userPrefs: { likes: [], dislikes: [] } } }
-//     );
+//     await Post.updateMany({}, { $set: { userPrefs: { userId: "102715752" } } });
 
 //     console.log("Updated Many Data");
 //   } catch (err) {
