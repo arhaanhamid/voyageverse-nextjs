@@ -29,7 +29,7 @@ const SinglePostPage = async ({ params }) => {
   const userPrefs = await post.userPrefs.filter(
     (item) => userId === item.userId
   );
-
+  
   // await updateManyData();
 
   function handleClick() {
@@ -83,6 +83,7 @@ const SinglePostPage = async ({ params }) => {
             ? JSON.stringify(userPrefs[0])
             : { like: false, dislike: false, pending: true }
         }
+        postId ={postid}
         userId={userId}
       />
 

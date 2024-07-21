@@ -8,6 +8,7 @@ const InteractionMenu = ({
   dislikes,
   userPrefs = JSON.parse(userPrefs),
   userId,
+  postId
 }) => {
   // const [prefs, setPrefs] = useState[{ likes: likes, dislikes: dislikes }];
   const intMenu = [
@@ -22,30 +23,33 @@ const InteractionMenu = ({
     dislike: userPrefs.dislike,
     pending: userPrefs.pending,
     userId: userId,
+    postId,
   });
-
+  
   // const isInitialMount = useRef(true);
 
-  // useEffect(() => {
-  //   console.log("inside useeffect");
-  //   console.log(interaction);
-  //   console.log(isInitialMount);
-  //   async function updateData() {
-  //     try {
-  //       await updateInteraction(interaction);
-  //     } catch (error) {
-  //       console.error("Error updating interaction:", error);
-  //     }
-  //   }
+  useEffect(() => {
+    async function updateData() {
+    
+      console.log("Inside Async UpdateData")
+      try {
+        console.log("interactionnnnnnnnnnnn",interaction)
+        await updateInteraction(interaction);
+      } catch (error) {
+        console.error("Error updating interaction:", error);
+      } 
+      
+    }
+    console.log("Outside")
+    // if (isInitialMount.current) {
+    //   console.log("isInitialMount");
+    //   isInitialMount.current = false;
+    // } else {
+    //   console.log("updateinh datra");
+    // }
 
-  //   if (isInitialMount.current) {
-  //     console.log("isInitialMount");
-  //     isInitialMount.current = false;
-  //   } else {
-  //     console.log("updateinh datra");
-  //     updateData();
-  //   }
-  // }, [interaction]);
+    updateData();
+  }, [interaction]);
 
   function handleClick(item) {
     const likeBtn = document.getElementById("Like_svg");
@@ -53,13 +57,13 @@ const InteractionMenu = ({
 
     switch (item) {
       case "Like":
-        setInteraction({ like: true, dislike: false, pending: false });
+        setInteraction({ ...interaction,like: true, dislike: false, pending: false });
         likeBtn.setAttribute("fill", "white");
         dislikeBtn.setAttribute("fill", "black");
 
         break;
       case "Dislike":
-        setInteraction({ like: false, dislike: true, pending: false });
+        setInteraction({ ...interaction,like: false, dislike: true, pending: false });
         dislikeBtn.setAttribute("fill", "white");
         likeBtn.setAttribute("fill", "black");
         break;
@@ -76,7 +80,7 @@ const InteractionMenu = ({
     <div className="flex justify-center gap-10">
       {intMenu.map((item, index) => {
         const [label, SVG] = item;
-        console.log(label !== "Like");
+        // console.log(label !== "Like");
         return (
           <div
             key={index}

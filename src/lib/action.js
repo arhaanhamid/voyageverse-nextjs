@@ -56,6 +56,7 @@ export const uploadData = async function (formData) {
       userId,
       imageData,
       userPrefs: [{ userId: userId }],
+
     });
 
     await newPost.save();
@@ -73,18 +74,37 @@ export const uploadData = async function (formData) {
 };
 
 export const updateInteraction = async (data) => {
+  if(!data){
+    return { error: "Data is required!" };
+  }
+  const intData = {
+    userId: data.userId,
+    like: data.like,
+    dislike: data.dislike,
+    pending:data.pending
+  }
+  const postId = data.postId 
   console.log("Update interaction Data");
   console.log(data);
+
   try {
+
     connectToDb();
+    await Post.updateOne(
+      {postId},
+      {  $push: { userPrefs: intData } }
+    );
+
+    // if (result.modifiedCount === 0) {
+    //   throw new Error('No document found with that Post ID');
+    // }
 
     console.log("Interaction updated!");
+    return { message: 'Interaction updated successfully!' };
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return { error: "Something went wrong!" };
   }
-
-  revalidatePath("/");
 };
 
 export const deletePost = async (formData) => {
