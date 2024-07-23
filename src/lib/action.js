@@ -5,6 +5,7 @@ import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
+const { ObjectId } = require("mongodb");
 
 import { v2 as cloudinary } from "cloudinary";
 
@@ -15,13 +16,16 @@ export const uploadData = async function (formData) {
   const session = await auth();
   const userId = session.user.id;
 
+  if (!userId) {
+    return { error: "Something went wrong!" };
+  }
+
   const files = formData.getAll("images");
 
   for (const file of files) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    console.log(title, desc, location, userId, buffer);
     await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
@@ -56,7 +60,6 @@ export const uploadData = async function (formData) {
       userId,
       imageData,
       userPrefs: [{ userId: userId }],
-
     });
 
     await newPost.save();
@@ -74,33 +77,37 @@ export const uploadData = async function (formData) {
 };
 
 export const updateInteraction = async (data) => {
-  if(!data){
+  if (!data) {
     return { error: "Data is required!" };
   }
   const intData = {
     userId: data.userId,
     like: data.like,
     dislike: data.dislike,
-    pending:data.pending
-  }
-  const postId = data.postId 
-  console.log("Update interaction Data");
-  console.log(data);
+    pending: data.pending,
+  };
+  const postId = new ObjectId(data.postId);
 
   try {
-
     connectToDb();
-    await Post.updateOne(
-      {postId},
-      {  $push: { userPrefs: intData } }
+    const result = await Post.updateOne(
+      { _id: postId, "userPrefs.userId": data.userId },
+      {
+        $set: { "userPrefs.$": intData },
+      }
     );
 
-    // if (result.modifiedCount === 0) {
-    //   throw new Error('No document found with that Post ID');
-    // }
+    if (result.matchedCount === 0) {
+      await Post.updateOne(
+        { _id: postId },
+        {
+          $push: { userPrefs: intData },
+        }
+      );
+    }
 
     console.log("Interaction updated!");
-    return { message: 'Interaction updated successfully!' };
+    return { message: "Interaction updated successfully!" };
   } catch (err) {
     console.error(err);
     return { error: "Something went wrong!" };

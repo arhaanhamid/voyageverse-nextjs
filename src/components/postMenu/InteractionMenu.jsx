@@ -3,13 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { like, dislike, share, flag } from "./PostSvg";
 import { updateInteraction } from "@/lib/action";
 
-const InteractionMenu = ({
-  likes,
-  dislikes,
-  userPrefs = JSON.parse(userPrefs),
-  userId,
-  postId
-}) => {
+const InteractionMenu = ({ likes, dislikes, userPrefs, userId, postId }) => {
   // const [prefs, setPrefs] = useState[{ likes: likes, dislikes: dislikes }];
   const intMenu = [
     ["Like", like],
@@ -17,30 +11,24 @@ const InteractionMenu = ({
     ["Share", share],
     ["Flag", flag],
   ];
+  const parsedUserPrefs = JSON.parse(userPrefs);
 
   const [interaction, setInteraction] = useState({
-    like: userPrefs.like,
-    dislike: userPrefs.dislike,
-    pending: userPrefs.pending,
+    like: parsedUserPrefs.like,
+    dislike: parsedUserPrefs.dislike,
+    pending: parsedUserPrefs.pending,
     userId: userId,
     postId,
   });
-  
-  // const isInitialMount = useRef(true);
 
   useEffect(() => {
     async function updateData() {
-    
-      console.log("Inside Async UpdateData")
       try {
-        console.log("interactionnnnnnnnnnnn",interaction)
         await updateInteraction(interaction);
       } catch (error) {
         console.error("Error updating interaction:", error);
-      } 
-      
+      }
     }
-    console.log("Outside")
     // if (isInitialMount.current) {
     //   console.log("isInitialMount");
     //   isInitialMount.current = false;
@@ -57,13 +45,23 @@ const InteractionMenu = ({
 
     switch (item) {
       case "Like":
-        setInteraction({ ...interaction,like: true, dislike: false, pending: false });
+        setInteraction({
+          ...interaction,
+          like: true,
+          dislike: false,
+          pending: false,
+        });
         likeBtn.setAttribute("fill", "white");
         dislikeBtn.setAttribute("fill", "black");
 
         break;
       case "Dislike":
-        setInteraction({ ...interaction,like: false, dislike: true, pending: false });
+        setInteraction({
+          ...interaction,
+          like: false,
+          dislike: true,
+          pending: false,
+        });
         dislikeBtn.setAttribute("fill", "white");
         likeBtn.setAttribute("fill", "black");
         break;
@@ -80,7 +78,6 @@ const InteractionMenu = ({
     <div className="flex justify-center gap-10">
       {intMenu.map((item, index) => {
         const [label, SVG] = item;
-        // console.log(label !== "Like");
         return (
           <div
             key={index}
@@ -88,7 +85,7 @@ const InteractionMenu = ({
             className="flex items-center"
           >
             <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
-              {<SVG id={label + "_svg"} userPrefs={userPrefs} />}
+              {<SVG id={label + "_svg"} userPrefs={parsedUserPrefs} />}
               {
                 <span id={label + "_span"} className="font-bold text-white">
                   {label !== "Like" && label !== "Dislike"

@@ -10,13 +10,16 @@ const Feed = async () => {
     const userPromises = posts.map((post) => getUser(post.userId));
     const users = await Promise.all(userPromises);
 
-    const postsWithUsers = users.map((user, index) => ({
-      ...posts[index].toObject(),
-      createdDate: format(new Date(posts[index].createdAt), "dd/MM/yyyy, p"),
-
-      userImg: user.img,
-      username: user.username,
-    }));
+    const postsWithUsers = users.map((user, index) => {
+      console.log(user);
+      return {
+        ...posts[index].toObject(),
+        createdDate: format(new Date(posts[index].createdAt), "dd/MM/yyyy, p"),
+        userImg:
+          user.img !== undefined || user.img ? user.img : "/noavatar.png",
+        username: user.username,
+      };
+    });
 
     return postsWithUsers;
   }
