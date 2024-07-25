@@ -86,24 +86,67 @@ export const updateInteraction = async (data) => {
     dislike: data.dislike,
     pending: data.pending,
   };
+
   const postId = new ObjectId(data.postId);
 
   try {
     connectToDb();
-    const result = await Post.updateOne(
-      { _id: postId, "userPrefs.userId": data.userId },
-      {
-        $set: { "userPrefs.$": intData },
-      }
-    );
+    const origPost = await Post.findOne({
+      _id: postId,
+      userId: intData.userId,
+    });
 
-    if (result.matchedCount === 0) {
+    if (!origPost) {
       await Post.updateOne(
         { _id: postId },
         {
           $push: { userPrefs: intData },
         }
       );
+    } else {
+      const update = { $set: {} };
+      const userPrefs = origPost.userPrefs[0];
+
+      if (intData.like) {
+        if (userPrefs.like) {
+          return null;
+        } else if (userPrefs.dislike) {
+          update.$set["userPrefs.$.like"] = true;
+          update.$set["userPrefs.$.dislike"] = false;
+          update.$set["userPrefs.$.pending"] = false;
+          update.$inc = { "prefs.likes": 1, "prefs.dislikes": -1 };
+        } else {
+          update.$set["userPrefs.$.like"] = true;
+          update.$set["userPrefs.$.pending"] = false;
+          update.$inc = { "prefs.likes": 1 };
+        }
+      } else if (intData.dislike) {
+        if (userPrefs.dislike) {
+          return null;
+        } else if (userPrefs.like) {
+          update.$set["userPrefs.$.like"] = false;
+          update.$set["userPrefs.$.dislike"] = true;
+          update.$set["userPrefs.$.pending"] = false;
+
+          update.$inc = { "prefs.likes": -1, "prefs.dislikes": 1 };
+        } else {
+          update.$set["userPrefs.$.dislike"] = true;
+          update.$set["userPrefs.$.pending"] = false;
+          update.$inc = { "prefs.dislikes": 1 };
+        }
+      }
+
+      await Post.updateOne(
+        { _id: postId, "userPrefs.userId": data.userId },
+        update
+      );
+
+      // await Post.updateOne(
+      //   { _id: postId, "userPrefs.userId": data.userId },
+      //   {
+      //     $set: { "userPrefs.$": intData },
+      //   }
+      // );
     }
 
     console.log("Interaction updated!");

@@ -29,7 +29,7 @@ const SinglePostPage = async ({ params }) => {
   const userPrefs = await post.userPrefs.filter(
     (item) => userId === item.userId
   );
-  
+
   // await updateManyData();
 
   function handleClick() {
@@ -76,14 +76,15 @@ const SinglePostPage = async ({ params }) => {
       </div>
 
       <InteractionMenu
+        plainPost={plainPost}
         likes={post.prefs.likes}
         dislikes={post.prefs.dislikes}
         userPrefs={
           userPrefs.length > 0
             ? JSON.stringify(userPrefs[0])
-            : { like: false, dislike: false, pending: true }
+            : JSON.stringify({ like: false, dislike: false, pending: true })
         }
-        postId ={postid}
+        postId={postid}
         userId={userId}
       />
 

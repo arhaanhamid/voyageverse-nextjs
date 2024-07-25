@@ -3,7 +3,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { like, dislike, share, flag } from "./PostSvg";
 import { updateInteraction } from "@/lib/action";
 
-const InteractionMenu = ({ likes, dislikes, userPrefs, userId, postId }) => {
+const InteractionMenu = ({
+  likes,
+  dislikes,
+  userPrefs,
+  userId,
+  postId,
+  plainPost,
+}) => {
+  const post = JSON.parse(plainPost);
   // const [prefs, setPrefs] = useState[{ likes: likes, dislikes: dislikes }];
   const intMenu = [
     ["Like", like],
@@ -11,6 +19,8 @@ const InteractionMenu = ({ likes, dislikes, userPrefs, userId, postId }) => {
     ["Share", share],
     ["Flag", flag],
   ];
+  console.log(likes);
+  console.log(userPrefs);
   const parsedUserPrefs = JSON.parse(userPrefs);
 
   const [interaction, setInteraction] = useState({
@@ -24,20 +34,23 @@ const InteractionMenu = ({ likes, dislikes, userPrefs, userId, postId }) => {
   useEffect(() => {
     async function updateData() {
       try {
+        console.log("updateData");
         await updateInteraction(interaction);
       } catch (error) {
         console.error("Error updating interaction:", error);
       }
     }
-    // if (isInitialMount.current) {
-    //   console.log("isInitialMount");
-    //   isInitialMount.current = false;
-    // } else {
-    //   console.log("updateinh datra");
-    // }
+    // Only update when like or dislike changes
+    if (
+      interaction.like !== parsedUserPrefs.like ||
+      interaction.dislike !== parsedUserPrefs.dislike
+    ) {
+      updateData();
 
-    updateData();
-  }, [interaction]);
+      parsedUserPrefs.like = interaction.like;
+      parsedUserPrefs.dislike = interaction.dislike;
+    }
+  }, [interaction.like, interaction.dislike]);
 
   function handleClick(item) {
     const likeBtn = document.getElementById("Like_svg");
