@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { like, dislike, share, flag } from "./PostSvg";
+import { like, dislike, share, flag, comment } from "./PostSvg";
 import { updateInteraction } from "@/lib/action";
+import Link from "next/link";
+import { Label } from "flowbite-react";
 
-const InteractionMenu = ({ postRawData }) => {
+const InteractionMenu = ({ postRawData, feedPage }) => {
   const intMenu = [
     ["Like", like],
     ["Dislike", dislike],
+    ["Comment", comment],
     ["Share", share],
     ["Flag", flag],
   ];
@@ -98,20 +101,28 @@ const InteractionMenu = ({ postRawData }) => {
         break;
       case "Flag":
         break;
+      case "Comment":
+        window.location.href = `/feed/${postData.postId.toString()}#moveToBottom`;
+        break;
       default:
         break;
     }
   }
   return (
-    <div className="flex justify-center gap-10">
+    <div className="flex justify-center gap-10 sm:gap-0">
       {intMenu.map((item, index) => {
         const [label, SVG] = item;
+        if (!feedPage && label === "Comment") {
+          return "";
+        }
+
         return (
           <div
             key={index}
             onClick={() => handleClick(label)}
             className="flex items-center"
           >
+            {/* <Link href={""} disabled="disabled"> */}
             <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
               {<SVG id={label + "_svg"} userPrefs={interaction} />}
               {
@@ -124,6 +135,7 @@ const InteractionMenu = ({ postRawData }) => {
                 </span>
               }
             </button>
+            {/* </Link> */}
           </div>
         );
       })}

@@ -63,23 +63,6 @@ export const follow = ({ id }) => (
   </svg>
 );
 
-// export const report = ({ id }) => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     height="24px"
-//     viewBox="0 -960 960 960"
-//     width="24px"
-//     fill="black"
-//     stroke="white"
-//     strokeWidth="50"
-//   >
-//     <path
-//       id={id}
-//       d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240ZM330-120 120-330v-300l210-210h300l210 210v300L630-120H330Zm34-80h232l164-164v-232L596-760H364L200-596v232l164 164Zm116-280Z"
-//     />
-//   </svg>
-// );
-
 export const share = ({ id }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -93,6 +76,22 @@ export const share = ({ id }) => (
     <path
       id={id}
       d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+    />
+  </svg>
+);
+export const comment = ({ id }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="black"
+    stroke="white"
+    strokeWidth="50"
+  >
+    <path
+      id={id}
+      d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Z"
     />
   </svg>
 );

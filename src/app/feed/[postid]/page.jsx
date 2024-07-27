@@ -76,7 +76,7 @@ const SinglePostPage = async ({ params }) => {
         </div>
       </div>
 
-      <InteractionMenu postRawData={postData} />
+      <InteractionMenu postRawData={postData} feedPage={false} />
 
       <DisqusCommentBlock
         shortname="voyageverse-3"
@@ -87,6 +87,7 @@ const SinglePostPage = async ({ params }) => {
           language: "en",
         }}
       />
+      <a id="moveToBottom"></a>
     </div>
   );
 };

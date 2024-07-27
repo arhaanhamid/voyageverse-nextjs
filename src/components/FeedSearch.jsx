@@ -11,37 +11,22 @@ import { getPosts } from "@/lib/data";
 import ShortPostCard from "./ShortPostCard";
 import Skeleton from "./Skeleton";
 
-const FeedSearch = ({ posts }) => {
+const FeedSearch = ({ posts, userId }) => {
   const parsedPosts = JSON.parse(posts);
-
   const [searchText, setSearchText] = useState("");
-  // const [filteredPosts, setFilteredPosts] = useState([]);
 
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
   };
-  // console.log("parsedPosts");
-
-  // useEffect(() => {
-  //   if (searchText === "") {
-  //     setFilteredPosts(parsedPosts);
-  //   }
-  // else {
-  //   setFilteredPosts(
-  //     parsedPosts.filter((post) => {
-  //       const regex = new RegExp(searchText, "i");
-  //       return regex.test(post.title);
-  //     })
-  //   );
-  // }
-  // }, [searchText, parsedPosts]);
 
   const filteredPosts = useMemo(() => {
     if (!searchText) return parsedPosts;
 
     const regex = new RegExp(searchText, "i");
-    return parsedPosts.filter((post) => regex.test(post.title));
+    const posts = parsedPosts.filter((post) => regex.test(post.title));
+
+    return posts;
   }, [searchText, parsedPosts]);
 
   return (
@@ -75,7 +60,7 @@ const FeedSearch = ({ posts }) => {
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
             <Suspense fallback={<Skeleton />} key={post._id}>
-              <WidePostCard post={post} />
+              <WidePostCard post={post} userId={userId} />
             </Suspense>
           ))
         ) : (

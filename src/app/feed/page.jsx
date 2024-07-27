@@ -3,8 +3,12 @@ import { getPosts, getUser, getUsers } from "@/lib/data";
 import WidePostCard from "@/components/WidePostCard";
 import FeedSearch from "@/components/FeedSearch";
 import { format } from "date-fns";
+import { auth } from "@/lib/auth";
 
 const Feed = async () => {
+  const session = await auth();
+  const userId = session.user.id;
+
   async function getData() {
     const posts = await getPosts();
     const userPromises = posts.map((post) => getUser(post.userId));
@@ -25,7 +29,7 @@ const Feed = async () => {
 
   const data = await getData();
 
-  return <FeedSearch posts={JSON.stringify(data)} />;
+  return <FeedSearch posts={JSON.stringify(data)} userId={userId} />;
 };
 
 export default Feed;

@@ -1,11 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "./Rating";
+import InteractionMenu from "./postMenu/InteractionMenu";
+import { auth } from "@/lib/auth";
 
-const WidePostCard = async ({ post }) => {
+const WidePostCard = async ({ post, userId }) => {
+  const userPrefs = (await post.userPrefs.find(
+    (pref) => pref.userId === userId
+  )) || {
+    like: false,
+    dislike: false,
+    pending: true,
+  };
+
+  const postData = JSON.stringify({
+    like: userPrefs.like,
+    dislike: userPrefs.dislike,
+    pending: userPrefs.pending,
+    likesCount: post.prefs.likes,
+    dislikesCount: post.prefs.dislikes,
+    userId,
+    postId: post._id,
+  });
+
   return (
-    <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-10 p-2 ">
-      <Rating ratingValue={3.5} />
+    <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-5 p-2">
       <main>
         <div className="w-full relative" style={{ height: 24 + "em" }}>
           <div className="absolute left-0 bottom-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-black/70"></div>
@@ -48,16 +67,20 @@ const WidePostCard = async ({ post }) => {
           </div>
         </div>
 
-        <div className="px-4 lg:px-0 mt-12 text-gray-400 max-w-screen-md mx-auto text-lg leading-relaxed">
-          <p className="mt-2 line-clamp-3 text-sm/relaxed text-white/95">
-            {post.desc}...
-          </p>
-          <Link
-            className="text-blue-600 underline font-bold"
-            href={`/feed/${post._id.toString()}`}
-          >
-            Read More...
-          </Link>
+        <div className="flex flex-col gap-5">
+          <div className="px-4 lg:px-0 mt-12 text-gray-400 max-w-screen-md mx-auto text-lg leading-relaxed">
+            <p className="mt-2 line-clamp-3 text-sm/relaxed text-white/95">
+              {post.desc}...
+            </p>
+            <Link
+              className="text-blue-600 underline font-bold"
+              href={`/feed/${post._id.toString()}`}
+            >
+              Read More...
+            </Link>
+          </div>
+
+          <InteractionMenu postRawData={postData} feedPage={true} />
         </div>
       </main>
     </div>
