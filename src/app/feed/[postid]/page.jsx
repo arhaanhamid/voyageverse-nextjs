@@ -26,24 +26,25 @@ const SinglePostPage = async ({ params }) => {
   const session = await auth();
   const userId = session.user.id;
 
-  const userPrefs = await post.userPrefs.filter(
-    (item) => userId === item.userId
-  );
-
   // await updateManyData();
 
-  function handleClick() {
-    console.log("follow clicked");
-    // case "Follow":
-    //   vote.follow
-    //     ? (followBtn.setAttribute("fill", "gray"),
-    //       (followSpan.innerText = "Follow"))
-    //     : (followBtn.setAttribute("fill", "red"),
-    //       (followSpan.innerText = "Unfollow"));
-    //   setVotes({ ...setVotes, follow: !vote.follow });
+  const userPrefs = (await post.userPrefs.find(
+    (pref) => pref.userId === userId
+  )) || {
+    like: false,
+    dislike: false,
+    pending: true,
+  };
 
-    //   break;
-  }
+  const postData = JSON.stringify({
+    like: userPrefs.like,
+    dislike: userPrefs.dislike,
+    pending: userPrefs.pending,
+    likesCount: post.prefs.likes,
+    dislikesCount: post.prefs.dislikes,
+    userId,
+    postId: postid,
+  });
 
   return (
     <div>
@@ -75,18 +76,7 @@ const SinglePostPage = async ({ params }) => {
         </div>
       </div>
 
-      <InteractionMenu
-        plainPost={plainPost}
-        likes={post.prefs.likes}
-        dislikes={post.prefs.dislikes}
-        userPrefs={
-          userPrefs.length > 0
-            ? JSON.stringify(userPrefs[0])
-            : JSON.stringify({ like: false, dislike: false, pending: true })
-        }
-        postId={postid}
-        userId={userId}
-      />
+      <InteractionMenu postRawData={postData} />
 
       <DisqusCommentBlock
         shortname="voyageverse-3"

@@ -3,80 +3,96 @@ import React, { useEffect, useRef, useState } from "react";
 import { like, dislike, share, flag } from "./PostSvg";
 import { updateInteraction } from "@/lib/action";
 
-const InteractionMenu = ({
-  likes,
-  dislikes,
-  userPrefs,
-  userId,
-  postId,
-  plainPost,
-}) => {
-  const post = JSON.parse(plainPost);
-  // const [prefs, setPrefs] = useState[{ likes: likes, dislikes: dislikes }];
+const InteractionMenu = ({ postRawData }) => {
   const intMenu = [
     ["Like", like],
     ["Dislike", dislike],
     ["Share", share],
     ["Flag", flag],
   ];
-  console.log(likes);
-  console.log(userPrefs);
-  const parsedUserPrefs = JSON.parse(userPrefs);
 
+  const postData = JSON.parse(postRawData);
+
+  // interaction valuse that we pass to server function to update mongodb
   const [interaction, setInteraction] = useState({
-    like: parsedUserPrefs.like,
-    dislike: parsedUserPrefs.dislike,
-    pending: parsedUserPrefs.pending,
-    userId: userId,
-    postId,
+    like: postData.like,
+    dislike: postData.dislike,
+    pending: postData.pending,
+    likesCount: postData.likesCount,
+    dislikesCount: postData.dislikesCount,
+    userId: postData.userId,
+    postId: postData.postId,
   });
 
+  //useeffect to call updateData server function to update mongoDB
   useEffect(() => {
     async function updateData() {
       try {
-        console.log("updateData");
         await updateInteraction(interaction);
       } catch (error) {
         console.error("Error updating interaction:", error);
       }
     }
+
     // Only update when like or dislike changes
     if (
-      interaction.like !== parsedUserPrefs.like ||
-      interaction.dislike !== parsedUserPrefs.dislike
+      interaction.like !== postData.like ||
+      interaction.dislike !== postData.dislike
     ) {
       updateData();
-
-      parsedUserPrefs.like = interaction.like;
-      parsedUserPrefs.dislike = interaction.dislike;
     }
   }, [interaction.like, interaction.dislike]);
 
+  //onClick to handle like and dislike events
   function handleClick(item) {
-    const likeBtn = document.getElementById("Like_svg");
-    const dislikeBtn = document.getElementById("Dislike_svg");
-
+    let prefs = {};
     switch (item) {
       case "Like":
+        //if-else ladder to hadnle likes count depending on previous values
+        if (interaction.like) {
+          prefs = { ...interaction };
+        } else if (interaction.dislike) {
+          prefs = {
+            ...interaction,
+            likesCount: interaction.likesCount + 1,
+            dislikesCount: interaction.dislikesCount - 1,
+          };
+        } else {
+          prefs = { ...interaction, likesCount: interaction.likesCount + 1 };
+        }
+
         setInteraction({
-          ...interaction,
+          ...prefs,
           like: true,
           dislike: false,
           pending: false,
         });
-        likeBtn.setAttribute("fill", "white");
-        dislikeBtn.setAttribute("fill", "black");
 
         break;
       case "Dislike":
+        //if-else ladder to hadnle dislikes count depending on previous values
+        if (interaction.dislike) {
+          prefs = { ...interaction };
+        } else if (interaction.like) {
+          prefs = {
+            ...interaction,
+            likesCount: interaction.likesCount - 1,
+            dislikesCount: interaction.dislikesCount + 1,
+          };
+        } else {
+          prefs = {
+            ...interaction,
+            dislikesCount: interaction.dislikesCount + 1,
+          };
+        }
+
         setInteraction({
-          ...interaction,
+          ...prefs,
           like: false,
           dislike: true,
           pending: false,
         });
-        dislikeBtn.setAttribute("fill", "white");
-        likeBtn.setAttribute("fill", "black");
+
         break;
       case "Share":
         break;
@@ -86,7 +102,6 @@ const InteractionMenu = ({
         break;
     }
   }
-
   return (
     <div className="flex justify-center gap-10">
       {intMenu.map((item, index) => {
@@ -98,14 +113,14 @@ const InteractionMenu = ({
             className="flex items-center"
           >
             <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
-              {<SVG id={label + "_svg"} userPrefs={parsedUserPrefs} />}
+              {<SVG id={label + "_svg"} userPrefs={interaction} />}
               {
                 <span id={label + "_span"} className="font-bold text-white">
                   {label !== "Like" && label !== "Dislike"
                     ? label
                     : label === "Like"
-                    ? likes
-                    : dislikes}
+                    ? interaction.likesCount
+                    : interaction.dislikesCount}
                 </span>
               }
             </button>

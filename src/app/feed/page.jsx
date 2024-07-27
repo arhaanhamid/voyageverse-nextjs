@@ -11,7 +11,6 @@ const Feed = async () => {
     const users = await Promise.all(userPromises);
 
     const postsWithUsers = users.map((user, index) => {
-      console.log(user);
       return {
         ...posts[index].toObject(),
         createdDate: format(new Date(posts[index].createdAt), "dd/MM/yyyy, p"),

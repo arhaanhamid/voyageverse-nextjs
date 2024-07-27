@@ -93,7 +93,7 @@ export const updateInteraction = async (data) => {
     connectToDb();
     const origPost = await Post.findOne({
       _id: postId,
-      userId: intData.userId,
+      "userPrefs.userId": intData.userId,
     });
 
     if (!origPost) {
@@ -105,7 +105,9 @@ export const updateInteraction = async (data) => {
       );
     } else {
       const update = { $set: {} };
-      const userPrefs = origPost.userPrefs[0];
+      const userPrefs = origPost.userPrefs.filter(
+        (item) => item.userId === intData.userId
+      )[0];
 
       if (intData.like) {
         if (userPrefs.like) {
