@@ -1,7 +1,6 @@
 "use client";
 
 import { register } from "@/lib/action";
-import styles from "./registerForm.module.css";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -16,20 +15,40 @@ const RegisterForm = () => {
     state?.success && router.push("/login");
   }, [state?.success, router]);
 
+  //styles
+  const inpCss = "p-5 bg-white text-black border-none rounded-md";
   return (
-    <form className={styles.form} action={formAction}>
-      <input type="text" placeholder="username" name="username" />
-      <input type="email" placeholder="email" name="email" />
-      <input type="password" placeholder="password" name="password" />
+    <form className="flex flex-col text-center gap-8" action={formAction}>
       <input
+        className={inpCss}
+        type="text"
+        placeholder="Username"
+        name="username"
+      />
+      <input
+        className={inpCss}
+        type="email"
+        placeholder="Email Address"
+        name="email"
+      />
+      <input
+        className={inpCss}
         type="password"
-        placeholder="password again"
+        placeholder="Password"
+        name="password"
+      />
+      <input
+        className={inpCss}
+        type="password"
+        placeholder="Confirm Password"
         name="passwordRepeat"
       />
-      <button>Register</button>
+      <button className="p-5 cursor-pointer bg-black text-white font-bold border-none rounded-md hover:bg-white hover:text-black">
+        Register
+      </button>
       {state?.error}
-      <Link href="/login">
-        Have an account? <b>Login</b>
+      <Link href="/login" className="text-black">
+        Have an account? <b className="text-blue-500">Login</b>
       </Link>
     </form>
   );

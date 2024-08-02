@@ -37,7 +37,7 @@ const ContactPage = () => {
 
     send(
       process.env.NEXT_PUBLIC_SERVICE_ID,
-      process.env.NEXT_PUBLIC_TEMPLATE_ID,
+      process.env.NEXT_PUBLIC_CONTACT_TEMPLATE_ID,
       data,
       process.env.NEXT_PUBLIC_USER_ID
     )

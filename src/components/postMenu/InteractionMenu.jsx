@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { like, dislike, share, flag, comment } from "./PostSvg";
+import { like, dislike, share, flag, comment } from "../PostSvg";
 import { updateInteraction } from "@/lib/action";
-import Link from "next/link";
-import { Label } from "flowbite-react";
 
 const InteractionMenu = ({ postRawData, feedPage }) => {
   const intMenu = [
@@ -26,6 +24,7 @@ const InteractionMenu = ({ postRawData, feedPage }) => {
     userId: postData.userId,
     postId: postData.postId,
   });
+  console.log(interaction);
 
   //useeffect to call updateData server function to update mongoDB
   useEffect(() => {
@@ -109,7 +108,7 @@ const InteractionMenu = ({ postRawData, feedPage }) => {
     }
   }
   return (
-    <div className="flex justify-center gap-10 sm:gap-0">
+    <div className="flex justify-center gap-7">
       {intMenu.map((item, index) => {
         const [label, SVG] = item;
         if (!feedPage && label === "Comment") {
@@ -120,7 +119,7 @@ const InteractionMenu = ({ postRawData, feedPage }) => {
           <div
             key={index}
             onClick={() => handleClick(label)}
-            className="flex items-center"
+            className="flex items-center "
           >
             {/* <Link href={""} disabled="disabled"> */}
             <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
@@ -144,18 +143,3 @@ const InteractionMenu = ({ postRawData, feedPage }) => {
 };
 
 export default InteractionMenu;
-{
-  /* <object
-  // id={item + "svg"}
-  // type="image/svg+xml"
-  data={item[1]}
-></object> */
-}
-{
-  /* <Image
-  src={item[1]}
-  alt={item[0]}
-  width={30}
-  height={30}
-/> */
-}

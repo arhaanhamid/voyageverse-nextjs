@@ -13,18 +13,22 @@ export const getPosts = async () => {
   }
 };
 
-// export const updateManyData = async () => {
-//   try {
-//     connectToDb();
+export const updateManyData = async () => {
+  try {
+    connectToDb();
 
-//     await Post.updateMany({}, { $set: { userPrefs: { userId: "102715752" } } });
+    // await Post.updateMany({}, { $set: { prefs: { likes: 0, dislikes: 0 } } });
+    await Post.updateMany(
+      {},
+      { $set: { userPrefs: { like: false, dislike: false, pending: true } } }
+    );
 
-//     console.log("Updated Many Data");
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error("Failed to fetch posts!");
-//   }
-// };
+    console.log("Updated Many Data");
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts!");
+  }
+};
 
 export const getUserPosts = async (userId) => {
   try {
