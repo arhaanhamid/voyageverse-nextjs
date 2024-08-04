@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import InteractionMenu from "./postMenu/InteractionMenu";
-import { uploadDataMany } from "@/lib/action";
 
 const WidePostCard = async ({ post, userId }) => {
   const userPrefs = (await post.userPrefs.find(
