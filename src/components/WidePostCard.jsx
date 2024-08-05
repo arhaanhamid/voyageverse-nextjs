@@ -22,7 +22,7 @@ const WidePostCard = async ({ post, userId }) => {
   });
 
   return (
-    <div className="max-w-screen-xl mx-auto mb-10 bg-gray-950 rounded-2xl pb-5 p-2">
+    <div className="mb-10 bg-gray-950 rounded-2xl pb-5 p-2 ">
       <div className="w-full relative" style={{ height: 24 + "em" }}>
         <div className="absolute left-0 bottom-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-black/70"></div>
         <Image
@@ -30,7 +30,7 @@ const WidePostCard = async ({ post, userId }) => {
           alt="asfsa"
           width={9999}
           height={9999}
-          className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-tl-xl rounded-tr-xl "
+          className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-tl-xl rounded-tr-xl"
         />
         <div className="pb-4 px-10 absolute bottom-0 left-0 z-20">
           <a

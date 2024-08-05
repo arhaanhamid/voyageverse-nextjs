@@ -9,7 +9,9 @@ const Navbar = ({ session }) => {
   return (
     <div
       className={` w-full h-[100%] flex items-center p-[15px] pl-[160px] pr-[160px] justify-between z-10 ${
-        pathname !== "/" && "bg-[#ADB5BD] shadow-navbar-shadow"
+        pathname !== "/" &&
+        pathname !== "/profile" &&
+        "bg-[#ADB5BD] shadow-navbar-shadow"
       }`}
     >
       <span className="flex items-center">

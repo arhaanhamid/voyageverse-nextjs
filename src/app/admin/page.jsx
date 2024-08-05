@@ -9,6 +9,7 @@ import { auth } from "@/lib/auth";
 const AdminPage = async () => {
   const session = await auth();
 
+  //Admin dashboard here: https://docs.adminjs.co/tutorials/content-management-system
   return (
     <div className={styles.container}>
       <div className={styles.row}>
