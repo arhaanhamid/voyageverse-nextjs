@@ -230,7 +230,10 @@ export const handleLogout = async () => {
 export const register = async (previousState, formData) => {
   const { username, email, password, img, passwordRepeat } =
     Object.fromEntries(formData);
-
+  console.log(password.length);
+  if (password.length <= 7) {
+    return { error: "Passwords length must be at least 8 digits" };
+  }
   if (password !== passwordRepeat) {
     return { error: "Passwords do not match" };
   }

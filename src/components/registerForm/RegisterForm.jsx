@@ -46,7 +46,7 @@ const RegisterForm = () => {
       <button className="p-5 cursor-pointer bg-black text-white font-bold border-none rounded-md hover:bg-white hover:text-black">
         Register
       </button>
-      {state?.error}
+      <p className="text-red-700">{state?.error}</p>
       <Link href="/login" className="text-black">
         Have an account? <b className="text-blue-500">Login</b>
       </Link>

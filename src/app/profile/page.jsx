@@ -8,10 +8,10 @@ const ProfilePage = async () => {
 
   return (
     <div>
-      <div className="profile-cover"></div>
+      <div className="profile-cover shadow-form-shadow"></div>
       <div className="flex mt-20">
         <div className="min-w-[30%] sm:mr-8 lg:mr-16 z-10">
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center shadow-form-shadow">
             <div class="bg-white">
               <div class="flex justify-center px-5 -mt-24 mb-10">
                 <Image
