@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import styles from "./about.module.css";
 import dynamic from "next/dynamic";
 
@@ -46,9 +45,9 @@ const AboutPage = () => {
           the ultimate travel companion for adventurers and explorers alike.
           Imagine having a one-stop resource that provides you with all the
           essential information about a destination before you even set foot
-          there. Whether you're planning a weekend getaway or an extended
-          vacation, Voyageverse ensures you're well-prepared and excited for
-          your journey.
+          there. Whether you&apos;re planning a weekend getaway or an extended
+          vacation, Voyageverse ensures you&apos;re well-prepared and excited
+          for your journey.
         </p>
         <div className={styles.boxes}>
           {achievementsList.map((achievement, index) => {

@@ -1,6 +1,5 @@
 import LoginForm from "@/components/loginForm/LoginForm";
 import { handleGithubLogin, handleGoogleLogin } from "@/lib/action";
-import { googleIcon } from "@/components/PostSvg";
 
 const LoginPage = () => {
   return (

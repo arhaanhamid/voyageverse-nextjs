@@ -1,4 +1,4 @@
-import { getPosts, getRecentPosts } from "@/lib/data";
+import { getRecentPosts } from "@/lib/data";
 import ShortPostCard from "../ShortPostCard";
 
 const RecentPosts = async () => {

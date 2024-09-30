@@ -1,6 +1,4 @@
-import styles from "./feed.module.css";
-import { getPosts, getUser, getUsers } from "@/lib/data";
-import WidePostCard from "@/components/WidePostCard";
+import { getPosts, getUser } from "@/lib/data";
 import FeedSearch from "@/components/FeedSearch";
 import { format } from "date-fns";
 import { auth } from "@/lib/auth";

@@ -1,7 +1,7 @@
 import styles from "./singlePost.module.css";
 import PostUser from "@/components/postUser/PostUser";
 import { Suspense } from "react";
-import { getPost, updateManyData } from "@/lib/data";
+import { getPost } from "@/lib/data";
 import DisqusCommentBlock from "@/components/Disqus/DisqusCommentBlock";
 import PostCrousel from "@/components/PostCrousel";
 import InteractionMenu from "@/components/postMenu/InteractionMenu";

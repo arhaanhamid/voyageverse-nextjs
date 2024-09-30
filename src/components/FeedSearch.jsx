@@ -1,14 +1,6 @@
 "use client";
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import WidePostCard from "@/components/WidePostCard";
-import { getPosts } from "@/lib/data";
-import ShortPostCard from "./ShortPostCard";
 import Skeleton from "./Skeleton";
 
 const FeedSearch = ({ posts, userId }) => {

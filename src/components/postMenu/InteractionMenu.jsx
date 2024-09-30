@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { like, dislike, share, flag, comment } from "../PostSvg";
 import { updateInteraction } from "@/lib/action";
 
