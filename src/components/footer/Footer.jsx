@@ -11,7 +11,7 @@ const Footer = () => {
         </Link>
       </div>
       <div className={styles.text}>
-        {`© All rights reserved under VoyageVerse.`}
+        © All rights reserved under VoyageVerse.
       </div>
     </div>
   );
