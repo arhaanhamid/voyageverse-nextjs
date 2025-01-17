@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 import { auth, signIn, signOut } from "./auth";
+import { Promise } from "core-js";
+
 import bcrypt from "bcryptjs";
 const { ObjectId } = require("mongodb");
 
