@@ -2,8 +2,7 @@
 
 ## Preview URL
 
-NOT DEPLOYED YET
-
+[VoyageVerse]https://voyageverse-nextjs.vercel.app/
 ## Description
 
 Welcome to **VoyageVerse**, the vibrant online community for travel enthusiasts!  
