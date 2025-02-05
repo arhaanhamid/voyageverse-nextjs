@@ -2,7 +2,8 @@
 
 ## Preview URL
 
-NOT DEPLOYED YET
+https://voyageverse-nextjs.vercel.app/
+
 
 ## Description
 
