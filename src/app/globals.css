@@ -2,15 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --bg: black;
   --bgSoft: #2d2b42;
   --text: #fff;
   --textSoft: #e5e5e5;
   --btn: #3673fd;
-  font-family: 'Nunito', Courier, monospace;
-
+  font-family: "Nunito", Courier, monospace;
 }
 
 * {
@@ -25,8 +23,8 @@ a {
 }
 
 .sub-container {
-  position: relative; /* Establish stacking context */
-  overflow: hidden; /* Prevent horizontal overflow */
+  position: relative;
+  overflow: hidden;
 }
 
 .blur-overlay {
@@ -34,61 +32,49 @@ a {
   top: 0px;
   left: 0;
   width: 100%;
-  height: 105vh; 
-  background-image: url("/hero_bg.webp"); 
+  height: 105vh;
+  background-color: gray;
+  background-image: url("/hero_bg.webp");
   background-size: cover;
   background-position: center;
-  filter: blur(4px); 
-  z-index: 1; 
+  filter: blur(4px);
+  z-index: 0;
 }
 .profile-cover {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 30vh; 
-  background-image: url("https://images.unsplash.com/photo-1605379399642-870262d3d051?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"); 
+  height: 30vh;
+  background-image: url("https://images.unsplash.com/photo-1605379399642-870262d3d051?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80");
   background-size: cover;
   background-position: center;
   /* z-index: -11;  */
 }
 .profile-cover::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.8));
   pointer-events: none;
 }
 
-.content-container {
-  margin: 25px 150px;
-  padding: 0 25px
-}
-
-
 @media (max-width: 1536px) {
-
 }
 
 @media (max-width: 1366px) {
-
 }
 
 @media (max-width: 1280px) {
-
 }
 
 @media (max-width: 1024px) {
-
 }
 
 @media (max-width: 768px) {
-
 }
 
 @media (max-width: 640px) {
-
 }
 @media (max-width: 475px) {
-
 }

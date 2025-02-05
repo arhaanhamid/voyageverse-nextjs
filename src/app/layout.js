@@ -1,4 +1,4 @@
-import { Inter, Nunito } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import "./globalicons.css";
 import Navbar from "@/components/navbar/Navbar";
@@ -9,7 +9,6 @@ import Loading from "./loading";
 import "@smastrom/react-rating/style.css";
 import { auth } from "@/lib/auth";
 
-const inter = Inter({ subsets: ["latin"] });
 const nunito = Nunito({
   subsets: ["latin"], // Specify subsets for your locale
   weights: ["400", "600", "700"], // Add the weights you need
@@ -31,16 +30,30 @@ export default async function RootLayout({ children }) {
       <head>
         {/* Favicon */}
         <link rel="icon" href="/icon_white.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
       </head>
       <body className={nunito.className}>
         <div className="w-full min-h-screen flex flex-col justify-between bg-[#DEE2E6]">
           <Navbar session={session} />
           <PostModal />
           <Suspense fallback={<Loading />}>
-            <div className="content-container">{children}</div>
+            <div className="">{children}</div>
           </Suspense>
 
           <Footer />

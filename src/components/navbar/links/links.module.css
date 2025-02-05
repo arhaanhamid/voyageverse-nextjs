@@ -1,53 +1,38 @@
-.links {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-}
-
-.createPost{
-  cursor: pointer;
-}
-
-.logout {
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.avatar{
-  display: flex;
-  align-self: center;
-  border-radius: 100%;
-}
-
-.menuButton,
-.mobileLinks {
-  display: none;
-}
-
 @media (max-width: 768px) {
-  .links {
-    display: none;
-  }
-
-  .menuButton {
-    display: block;
-    cursor: pointer;
-  }
-
   .mobileLinks {
-    position: absolute;
-    top: 100px;
-    right: 0;
+    z-index: 1;
+    position: fixed;
+    top: 10%;
+    color: white;
+    font-weight: bold;
+    right: 0; /* Attach to right side */
     width: 50%;
-    height: calc(100vh - 100px);
-    background-color: var(--bg);
+    height: calc(100vh - 10%);
+    background-color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
+
+    transition: 1.2s;
+
+    border: none;
+    overflow: hidden;
+
+    animation: growOutRight 300ms ease-in-out forwards;
+    transform-origin: left; /* Set origin to left for right-side animation */
+  }
+}
+
+@keyframes growOutRight {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

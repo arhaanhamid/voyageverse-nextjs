@@ -1,46 +1,34 @@
 "use client";
-
 import { useState } from "react";
-import styles from "./links.module.css";
 import NavLink from "./navLink/NavLink";
 import Image from "next/image";
 import { handleLogout } from "@/lib/action";
 import Link from "next/link";
+import styles from "./links.module.css";
 
 const links = [
-  {
-    title: "Home",
-    path: "/",
-  },
-  {
-    title: "Feed",
-    path: "/feed",
-  },
-  {
-    title: "About",
-    path: "/about",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
-  },
+  { title: "Home", path: "/" },
+  { title: "Feed", path: "/feed" },
+  { title: "About", path: "/about" },
+  { title: "Contact", path: "/contact" },
 ];
 
 const Links = ({ session }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className={styles.container}>
-      <div className={styles.links}>
+    <div className="relative">
+      {/* Desktop Links (hidden on small screens) */}
+      <div className="hidden md:flex items-center gap-1 lg:gap-2 text-white">
         {links.map((link) => (
           <NavLink item={link} key={link.title} />
         ))}
 
         <button
           id="openButton"
-          className={`${
+          className={`mr-5 flex items-center gap-1.5 font-medium ${
             !session && "text-gray-400"
-          } mr-5 flex justify-center items-center gap-1.5 font-medium`}
-          disabled={!session ? true : false}
+          }`}
+          disabled={!session}
         >
           <span className="material-symbols-outlined">add</span>
           Create
@@ -51,35 +39,41 @@ const Links = ({ session }) => {
             {session.user?.isAdmin && (
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
-
             {!session.user?.isAdmin && (
               <Link href="/profile">
                 <Image
                   src={session?.user.image || "/noAvatar.png"}
                   width={37}
                   height={37}
-                  className={styles.avatar}
                   alt="profile"
+                  className="flex self-center rounded-full"
                 />
               </Link>
             )}
-
             <form action={handleLogout}>
-              <button className={styles.logout}>Logout</button>
+              <button className="p-2 ml-2 cursor-pointer font-bold">
+                Logout
+              </button>
             </form>
           </>
         ) : (
           <NavLink item={{ title: "Login", path: "/login" }} />
         )}
       </div>
-      <Image
-        className={styles.menuButton}
-        src="/menu.png"
-        alt=""
-        width={30}
-        height={30}
-        onClick={() => setOpen((prev) => !prev)}
-      />
+
+      {/* Mobile Menu Button (visible on small screens) */}
+      <div className="md:hidden">
+        <Image
+          src="/menu.png"
+          alt="Menu"
+          width={30}
+          height={30}
+          className="cursor-pointer"
+          onClick={() => setOpen((prev) => !prev)}
+        />
+      </div>
+
+      {/* Mobile Links (visible when open on small screens) */}
       {open && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
