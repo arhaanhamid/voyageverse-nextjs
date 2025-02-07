@@ -1,18 +1,7 @@
 "use client";
 import Image from "next/image";
-import styles from "./contact.module.css";
 import { useState } from "react";
 import { send } from "emailjs-com";
-
-// import dynamic from "next/dynamic";
-// import HydrationTest from "@/components/hydrationTest";
-
-// const HydrationTestNoSSR = dynamic(()=>import("@/components/hydrationTest"), {ssr: false})
-
-// export const metadata = {
-//   title: "Contact Page",
-//   description: "Contact description",
-// };
 
 const ContactPage = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
@@ -22,10 +11,8 @@ const ContactPage = () => {
     e.preventDefault();
 
     setButtonDisabled(true);
-    // document.getElementById("submitButton").classList.add("disabled");
     setTimeout(() => {
       setButtonDisabled(false);
-      // document.getElementById("submitButton").classList.remove("disabled");
     }, 30000);
 
     const data = {
@@ -51,27 +38,58 @@ const ContactPage = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <Image src="/contact.png" alt="" fill className={styles.img} />
-      </div>
-      <div className={styles.form_container}>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.form_group}>
-            <input type="text" placeholder="Name and Surname" name="name" />
+    <div className="flex flex-col md:flex-row items-center gap-10 p-1 sm:mx-20 md:mx-10 lg:mx-20 xl:mx-44 lg:gap-28 xl:gap-44">
+      {/* Image Container */}
+      {/* <div className="h-[200px]"> */}
+      <Image
+        src="/contact.png"
+        alt="Contact"
+        width={999}
+        height={999}
+        // fill
+        className="hidden md:block w-[300px] lg:w-[350px] xl:w-[400px] h-auto "
+      />
+      {/* </div> */}
+
+      {/* Form Container */}
+      <div
+        className="w-full rounded-[16px] border-2 border-transparent p-4 flex flex-col gap-[50px] text-white"
+        style={{
+          background:
+            "linear-gradient(#212121, #212121) padding-box, linear-gradient(145deg, transparent 35%, #e81cff, #40c9ff) border-box",
+        }}
+      >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-[30px]">
+          {/* Name Input */}
+          <div className="flex flex-col">
+            <input
+              type="text"
+              placeholder="Name and Surname"
+              name="name"
+              className="w-full px-4 py-3 rounded-[8px] text-white bg-transparent border border-[#414141] placeholder-[#6c6b6b] focus:outline-none focus:border-[#e81cff]"
+            />
           </div>
-          <div className={styles.form_group}>
+          {/* Email Input */}
+          <div className="flex flex-col">
             <input
               type="text"
               placeholder="Email Address"
               name="email"
               required
+              className="w-full px-4 py-3 rounded-[8px] text-white bg-transparent border border-[#414141] placeholder-[#6c6b6b] focus:outline-none focus:border-[#e81cff]"
             />
           </div>
-          <div className={styles.form_group}>
-            <input type="text" placeholder="Subject" name="subject" />
+          {/* Subject Input */}
+          <div className="flex flex-col">
+            <input
+              type="text"
+              placeholder="Subject"
+              name="subject"
+              className="w-full px-4 py-3 rounded-[8px] text-white bg-transparent border border-[#414141] placeholder-[#6c6b6b] focus:outline-none focus:border-[#e81cff]"
+            />
           </div>
-          <div className={styles.form_group}>
+          {/* Message Textarea */}
+          <div className="flex flex-col">
             <textarea
               name="message"
               id="message"
@@ -79,19 +97,26 @@ const ContactPage = () => {
               rows="10"
               required
               placeholder="Message"
+              className="w-full h-[96px] px-4 py-3 rounded-[8px] resize-none text-white bg-transparent border border-[#414141] placeholder-[#6c6b6b] focus:outline-none focus:border-[#e81cff]"
             ></textarea>
           </div>
+          {/* Submit Button */}
           <button
             type="submit"
-            className={
-              buttonDisabled ? styles.buttonDisabled : styles.buttonEnabled
-            }
+            disabled={buttonDisabled}
+            className={`p-5 rounded-[5px] font-bold ${
+              buttonDisabled
+                ? "bg-gray-500 cursor-not-allowed text-[var(--text)]"
+                : "bg-white text-black cursor-pointer hover:bg-[#414141] hover:text-white"
+            }`}
           >
             Send
           </button>
         </form>
         {emailSubmitted && (
-          <p className={styles.emailSent}>Email send successfully!</p>
+          <p className="mt-1 text-green-500 text-[15px] font-medium">
+            Email send successfully!
+          </p>
         )}
       </div>
     </div>

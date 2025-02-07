@@ -8,7 +8,7 @@ const Navbar = ({ session }) => {
   const pathname = usePathname();
   return (
     <div
-      className={`relative bg-gray-500 w-full h-[100%] flex items-center justify-between px-[15px] py-[15px] sm:px-[25px] md:px-[30px] lg:px-[70px] xl:px-[100px] z-10 ${
+      className={`relative w-full h-[100%] flex items-center justify-between px-[15px] py-[15px] sm:px-[25px] md:px-[30px] lg:px-[70px] xl:px-[100px] z-10 ${
         pathname !== "/" &&
         pathname !== "/profile" &&
         "bg-[#ADB5BD] shadow-navbar-shadow"

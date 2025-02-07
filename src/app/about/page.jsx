@@ -1,19 +1,9 @@
 "use client";
-import styles from "./about.module.css";
 import dynamic from "next/dynamic";
 
-//cant export since this is a client component
-// export const metadata = {
-//   title: "About Page",
-//   description: "About page",
-// };
-
-const AnimatedNumbers = dynamic(
-  () => {
-    return import("react-animated-numbers");
-  },
-  { ssr: false }
-);
+const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
+  ssr: false,
+});
 
 const achievementsList = [
   {
@@ -22,25 +12,26 @@ const achievementsList = [
     postfix: "+",
   },
   {
-    // prefix: "~",
     metric: "Posts",
     value: "100",
     postfix: "+",
   },
   {
-    metric: "Months",
-    value: "6",
+    metric: "Year",
+    value: "1",
     postfix: "+",
   },
 ];
 
 const AboutPage = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.textContainer}>
-        {/* <h2 className={styles.subtitle}>About this App</h2> */}
-        <h1 className={styles.title}>Welcome to VoyageVerse.</h1>
-        <p className={styles.desc}>
+    <div className="flex flex-col md:flex-row text-center md:text-left text-black leading-tight">
+      <div className="flex-1 flex flex-col gap-12 p-5 md:mx-10 lg:mx-16 xl:mx-56 my-5">
+        <h1 className="text-[54px] font-bold text-center">
+          Welcome to <br className="xl:hidden" />{" "}
+          <span className="uppercase text-green-500">VoyageVerse</span>.
+        </h1>
+        <p className="text-[20px] font-light">
           Voyageverse is a cutting-edge full-stack web platform designed to be
           the ultimate travel companion for adventurers and explorers alike.
           Imagine having a one-stop resource that provides you with all the
@@ -49,34 +40,30 @@ const AboutPage = () => {
           vacation, Voyageverse ensures you&apos;re well-prepared and excited
           for your journey.
         </p>
-        <div className={styles.boxes}>
-          {achievementsList.map((achievement, index) => {
-            return (
-              <div key={index} className={styles.box}>
-                <h2 className={styles.boxHead}>
-                  {achievement.prefix}
-                  <AnimatedNumbers
-                    includeComma
-                    animateToNumber={parseInt(achievement.value)}
-                    locale="en-US"
-                    transitions={(index) => ({
-                      type: "spring",
-                      duration: index + 0.9,
-                    })}
-                    configs={(_, index) => {
-                      return {
-                        mass: 1,
-                        friction: 100,
-                        tensions: 140 * (index + 1),
-                      };
-                    }}
-                  />
-                  {achievement.postfix}
-                </h2>
-                <p>{achievement.metric}</p>
-              </div>
-            );
-          })}
+        <div className="flex flex-col items-center gap-[50px] md:flex-row md:items-center md:justify-between xl:mx-36">
+          {achievementsList.map((achievement, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <h2 className="flex text-[var(--btn)] text-2xl">
+                {achievement.prefix && achievement.prefix}
+                <AnimatedNumbers
+                  includeComma
+                  animateToNumber={parseInt(achievement.value)}
+                  locale="en-US"
+                  transitions={(index) => ({
+                    type: "spring",
+                    duration: index + 0.9,
+                  })}
+                  configs={(_, index) => ({
+                    mass: 1,
+                    friction: 100,
+                    tensions: 140 * (index + 1),
+                  })}
+                />
+                {achievement.postfix && achievement.postfix}
+              </h2>
+              <p className="text-center">{achievement.metric}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

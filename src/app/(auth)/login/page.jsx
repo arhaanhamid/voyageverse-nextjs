@@ -4,7 +4,7 @@ import { handleGithubLogin, handleGoogleLogin } from "@/lib/action";
 const LoginPage = () => {
   return (
     <div className="flex items-center justify-center">
-      <div className="w-[500px] bg-[#ADB5BD] p-12 flex flex-col text-center gap-[30px]  shadow-form-shadow">
+      <div className="w-[500px] bg-[#ADB5BD] p-12 flex flex-col text-center gap-[30px] shadow-form-shadow lg:my-10 xl:my-16">
         <form action={handleGithubLogin}>
           <button
             className="
