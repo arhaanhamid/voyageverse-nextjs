@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { like, dislike, share, flag, comment } from "../PostSvg";
 import { updateInteraction } from "@/lib/action";
 
-const InteractionMenu = ({ postRawData, feedPage }) => {
+const InteractionMenu = ({ postData, feedPage }) => {
   const intMenu = [
     ["Like", like],
     ["Dislike", dislike],
@@ -12,7 +12,7 @@ const InteractionMenu = ({ postRawData, feedPage }) => {
     ["Flag", flag],
   ];
 
-  const postData = JSON.parse(postRawData);
+  console.log(postData);
 
   // interaction valuse that we pass to server function to update mongodb
   const [interaction, setInteraction] = useState({

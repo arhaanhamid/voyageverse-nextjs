@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavLink = ({ item }) => {
+const NavLink = ({ item, closeSidebar }) => {
   const pathName = usePathname();
   const baseClasses =
     "w-[70px] lg:w-[90px] px-1 py-0.5 lg:px-2 lg:py-1 rounded-[12px] font-[14px] text-center";
@@ -16,6 +16,7 @@ const NavLink = ({ item }) => {
       className={`${baseClasses} ${
         pathName === item.path ? activeClasses : ""
       }`}
+      onClick={() => closeSidebar((prev) => !prev)}
     >
       {item.title}
     </Link>

@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import { montserrat } from "./../fonts";
 
 const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
   ssr: false,
@@ -27,7 +28,9 @@ const AboutPage = () => {
   return (
     <div className="flex flex-col md:flex-row text-center md:text-left text-black leading-tight">
       <div className="flex-1 flex flex-col gap-12 p-5 md:mx-10 lg:mx-16 xl:mx-56 my-5">
-        <h1 className="text-[54px] font-bold text-center">
+        <h1
+          className={`${montserrat.className} text-[36px] lg:text-[54px] text-center`}
+        >
           Welcome to <br className="xl:hidden" />{" "}
           <span className="uppercase text-green-500">VoyageVerse</span>.
         </h1>

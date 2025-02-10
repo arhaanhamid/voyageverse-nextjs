@@ -1,5 +1,6 @@
 import RecentPosts from "@/components/recentPosts/RecentPosts";
 import Link from "next/link";
+import { montserrat } from "./fonts";
 
 const Home = () => {
   return (
@@ -16,7 +17,9 @@ const Home = () => {
             >
               <div className="w-full h-full bg-[url('/hero.gif')] bg-no-repeat bg-cover"></div>
             </div>
-            <h1 className="text-[40px] md:text-[50px] lg:text-[70px] text-center font-bold leading-tight">
+            <h1
+              className={`${montserrat.className} text-[40px] md:text-[50px] lg:text-[70px] text-center uppercase leading-tight`}
+            >
               Know Where To Go.
             </h1>
             <p className="text-[20px] text-center leading-tight">

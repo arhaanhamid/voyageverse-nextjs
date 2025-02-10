@@ -77,8 +77,52 @@ const Links = ({ session }) => {
       {open && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
-            <NavLink item={link} key={link.title} />
+            <NavLink item={link} key={link.title} closeSidebar={setOpen} />
           ))}
+          <button
+            id="openButton"
+            className={`mr-5 flex items-center gap-1.5 font-medium ${
+              !session && "text-gray-400"
+            }`}
+            disabled={!session}
+            onClick={() => setOpen((prev) => !prev)}
+          >
+            <span className="material-symbols-outlined">add</span>
+            Create
+          </button>
+
+          {session?.user ? (
+            <>
+              {session.user?.isAdmin && (
+                <NavLink item={{ title: "Admin", path: "/admin" }} />
+              )}
+              {!session.user?.isAdmin && (
+                <Link href="/profile">
+                  <Image
+                    src={session?.user.image || "/noAvatar.png"}
+                    width={37}
+                    height={37}
+                    alt="profile"
+                    className="flex self-center rounded-full"
+                    onClick={() => setOpen((prev) => !prev)}
+                  />
+                </Link>
+              )}
+              <form action={handleLogout}>
+                <button
+                  className="p-2 ml-2 cursor-pointer font-bold"
+                  onClick={() => setOpen((prev) => !prev)}
+                >
+                  Logout
+                </button>
+              </form>
+            </>
+          ) : (
+            <NavLink
+              item={{ title: "Login", path: "/login" }}
+              closeSidebar={setOpen}
+            />
+          )}
         </div>
       )}
     </div>

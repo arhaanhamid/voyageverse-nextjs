@@ -1,26 +1,10 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import InteractionMenu from "./postMenu/InteractionMenu";
+import InteractionMenu from "@/components/postMenu/InteractionMenu";
 
-const WidePostCard = async ({ post, userId }) => {
-  const userPrefs = (await post.userPrefs.find(
-    (pref) => pref.userId === userId
-  )) || {
-    like: false,
-    dislike: false,
-    pending: true,
-  };
-
-  const postData = JSON.stringify({
-    like: userPrefs.like,
-    dislike: userPrefs.dislike,
-    pending: userPrefs.pending,
-    likesCount: post.prefs.likes,
-    dislikesCount: post.prefs.dislikes,
-    userId,
-    postId: post._id,
-  });
-
+const WidePostCard = ({ post }) => {
+  console.log(post);
   return (
     <div className="mb-10 bg-gray-950 rounded-2xl pb-5 p-2 ">
       <div className="w-full relative" style={{ height: 24 + "em" }}>
@@ -77,7 +61,7 @@ const WidePostCard = async ({ post, userId }) => {
           </Link>
         </div>
 
-        <InteractionMenu postRawData={postData} feedPage={true} />
+        <InteractionMenu postData={post.postData} feedPage={true} />
       </div>
     </div>
   );

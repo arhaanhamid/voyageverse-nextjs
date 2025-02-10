@@ -1,4 +1,4 @@
-import { Nunito } from "next/font/google";
+import { nunito } from "./fonts";
 import "./globals.css";
 import "./globalicons.css";
 import Navbar from "@/components/navbar/Navbar";
@@ -8,11 +8,6 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import "@smastrom/react-rating/style.css";
 import { auth } from "@/lib/auth";
-
-const nunito = Nunito({
-  subsets: ["latin"], // Specify subsets for your locale
-  weights: ["400", "600", "700"], // Add the weights you need
-});
 
 export const metadata = {
   title: {

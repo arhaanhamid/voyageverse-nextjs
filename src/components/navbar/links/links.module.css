@@ -1,13 +1,13 @@
 @media (max-width: 768px) {
   .mobileLinks {
-    z-index: 1;
+    z-index: -1;
     position: fixed;
-    top: 10%;
+    top: 0%;
     color: white;
     font-weight: bold;
     right: 0; /* Attach to right side */
     width: 50%;
-    height: calc(100vh - 10%);
+    height: 100vh;
     background-color: black;
     display: flex;
     flex-direction: column;
@@ -20,8 +20,8 @@
     border: none;
     overflow: hidden;
 
-    animation: growOutRight 300ms ease-in-out forwards;
-    transform-origin: left; /* Set origin to left for right-side animation */
+    animation: growOutRight 300ms ease-in-out;
+    /* transform-origin: left;  */
   }
 }
 
