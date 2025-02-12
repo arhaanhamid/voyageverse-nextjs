@@ -12,8 +12,6 @@ const InteractionMenu = ({ postData, feedPage }) => {
     ["Flag", flag],
   ];
 
-  console.log(postData);
-
   // interaction valuse that we pass to server function to update mongodb
   const [interaction, setInteraction] = useState({
     like: postData.like,
@@ -24,7 +22,6 @@ const InteractionMenu = ({ postData, feedPage }) => {
     userId: postData.userId,
     postId: postData.postId,
   });
-  console.log(interaction);
 
   //useeffect to call updateData server function to update mongoDB
   useEffect(() => {
@@ -108,7 +105,7 @@ const InteractionMenu = ({ postData, feedPage }) => {
     }
   }
   return (
-    <div className="flex justify-center gap-7">
+    <div className="my-5 flex items-center justify-center text-xs md:text-sm text-white font-bold gap-1 md:gap-5">
       {intMenu.map((item, index) => {
         const [label, SVG] = item;
         if (!feedPage && label === "Comment") {
@@ -116,16 +113,12 @@ const InteractionMenu = ({ postData, feedPage }) => {
         }
 
         return (
-          <div
-            key={index}
-            onClick={() => handleClick(label)}
-            className="flex items-center "
-          >
+          <div key={index} onClick={() => handleClick(label)} className="">
             {/* <Link href={""} disabled="disabled"> */}
-            <button className="flex items-center px-6 py-5 border-2 bg-black rounded-full gap-3 w-full h-[40px]">
-              {<SVG id={label + "_svg"} userPrefs={interaction} />}
+            <button className="flex items-center px-3 py-1 gap-1 w-full h-[30px]">
+              {<SVG id={label + "_svg"} userPrefs={interaction} className="" />}
               {
-                <span id={label + "_span"} className="font-bold text-white">
+                <span id={label + "_span"}>
                   {label !== "Like" && label !== "Dislike"
                     ? label
                     : label === "Like"

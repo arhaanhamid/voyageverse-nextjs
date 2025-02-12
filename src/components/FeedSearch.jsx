@@ -22,11 +22,11 @@ const FeedSearch = ({ posts, userId }) => {
   }, [searchText, parsedPosts]);
 
   return (
-    <div className="flex-col w-[70%] mt-0 mb-0 mr-auto ml-auto">
-      <div className="relative mb-[50px] mt-[25px]">
+    <div className="flex-col w-full my-10">
+      <div className="relative mb-10 md:mx-20 lg:mx-36 xl:mx-80">
         <input
           placeholder="Search..."
-          className="input shadow-lg focus:border-2 border-gray-300 px-5 py-3 rounded-xl w-full transition-all focus:w-full text-black outline-none"
+          className="input shadow-lg focus:border-2 md:rounded-lg border-gray-300 px-5 py-3 w-full transition-all text-black outline-none"
           name="search"
           type="text"
           value={searchText}
@@ -48,26 +48,24 @@ const FeedSearch = ({ posts, userId }) => {
           ></path>
         </svg>
       </div>
-      <div>
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => (
-            <Suspense fallback={<Skeleton />} key={post._id}>
-              <WidePostCard post={post} userId={userId} />
-            </Suspense>
-          ))
-        ) : (
-          <div className="text-black">
-            <h1 className="text-4xl font-bold mb-8 text-center">
-              No results for{" "}
-              <span className="font-extrabold">&quot;{searchText}&quot;</span>
-            </h1>
-            {/* <p className="text-xl font-medium text-center">
+      {filteredPosts.length > 0 ? (
+        filteredPosts.map((post) => (
+          <Suspense fallback={<Skeleton />} key={post._id}>
+            <WidePostCard post={post} userId={userId} />
+          </Suspense>
+        ))
+      ) : (
+        <div className="text-black">
+          <h1 className="text-4xl font-bold mb-8 text-center">
+            No results for{" "}
+            <span className="font-extrabold">&quot;{searchText}&quot;</span>
+          </h1>
+          {/* <p className="text-xl font-medium text-center">
               Try searching for something else, or check your Search settings to
               see if they’re protecting you from potentially sensitive content.
             </p> */}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

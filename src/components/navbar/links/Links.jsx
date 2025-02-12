@@ -94,7 +94,10 @@ const Links = ({ session }) => {
           {session?.user ? (
             <>
               {session.user?.isAdmin && (
-                <NavLink item={{ title: "Admin", path: "/admin" }} />
+                <NavLink
+                  item={{ title: "Admin", path: "/admin" }}
+                  closeSidebar={setOpen}
+                />
               )}
               {!session.user?.isAdmin && (
                 <Link href="/profile">

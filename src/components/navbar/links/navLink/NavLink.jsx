@@ -16,7 +16,7 @@ const NavLink = ({ item, closeSidebar }) => {
       className={`${baseClasses} ${
         pathName === item.path ? activeClasses : ""
       }`}
-      onClick={() => closeSidebar((prev) => !prev)}
+      onClick={() => closeSidebar && closeSidebar((prev) => !prev)}
     >
       {item.title}
     </Link>
